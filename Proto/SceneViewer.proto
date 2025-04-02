@@ -13,6 +13,16 @@ message FileChunkReply {
 	int32 chunkTotal = 4;     // Completeness check
 }
 
-service SceneStreamer{
-	rpc SendSceneRequest(SceneRequest)  returns (stream FileChunkReply);
+message EmptyMsg{}
+
+message SceneFilepathsReply {
+    repeated string paths = 1;  // Array of strings
+    repeated string filenames = 2;  // Array of strings
+}
+
+
+service SceneStreamerService{
+	rpc SendSceneRequest(SceneRequest) returns (stream FileChunkReply);
+
+	rpc RequestSceneFilePaths(EmptyMsg) returns (SceneFilepathsReply);
 }

@@ -20,56 +20,98 @@
 #include <grpcpp/impl/service_type.h>
 #include <grpcpp/support/sync_stream.h>
 
-static const char* SceneStreamer_method_names[] = {
-  "/SceneStreamer/SendSceneRequest",
+static const char* SceneStreamerService_method_names[] = {
+  "/SceneStreamerService/SendSceneRequest",
+  "/SceneStreamerService/RequestSceneFilePaths",
 };
 
-std::unique_ptr< SceneStreamer::Stub> SceneStreamer::NewStub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options) {
+std::unique_ptr< SceneStreamerService::Stub> SceneStreamerService::NewStub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options) {
   (void)options;
-  std::unique_ptr< SceneStreamer::Stub> stub(new SceneStreamer::Stub(channel, options));
+  std::unique_ptr< SceneStreamerService::Stub> stub(new SceneStreamerService::Stub(channel, options));
   return stub;
 }
 
-SceneStreamer::Stub::Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options)
-  : channel_(channel), rpcmethod_SendSceneRequest_(SceneStreamer_method_names[0], options.suffix_for_stats(),::grpc::internal::RpcMethod::SERVER_STREAMING, channel)
+SceneStreamerService::Stub::Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options)
+  : channel_(channel), rpcmethod_SendSceneRequest_(SceneStreamerService_method_names[0], options.suffix_for_stats(),::grpc::internal::RpcMethod::SERVER_STREAMING, channel)
+  , rpcmethod_RequestSceneFilePaths_(SceneStreamerService_method_names[1], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
   {}
 
-::grpc::ClientReader< ::FileChunkReply>* SceneStreamer::Stub::SendSceneRequestRaw(::grpc::ClientContext* context, const ::SceneRequest& request) {
+::grpc::ClientReader< ::FileChunkReply>* SceneStreamerService::Stub::SendSceneRequestRaw(::grpc::ClientContext* context, const ::SceneRequest& request) {
   return ::grpc::internal::ClientReaderFactory< ::FileChunkReply>::Create(channel_.get(), rpcmethod_SendSceneRequest_, context, request);
 }
 
-void SceneStreamer::Stub::async::SendSceneRequest(::grpc::ClientContext* context, const ::SceneRequest* request, ::grpc::ClientReadReactor< ::FileChunkReply>* reactor) {
+void SceneStreamerService::Stub::async::SendSceneRequest(::grpc::ClientContext* context, const ::SceneRequest* request, ::grpc::ClientReadReactor< ::FileChunkReply>* reactor) {
   ::grpc::internal::ClientCallbackReaderFactory< ::FileChunkReply>::Create(stub_->channel_.get(), stub_->rpcmethod_SendSceneRequest_, context, request, reactor);
 }
 
-::grpc::ClientAsyncReader< ::FileChunkReply>* SceneStreamer::Stub::AsyncSendSceneRequestRaw(::grpc::ClientContext* context, const ::SceneRequest& request, ::grpc::CompletionQueue* cq, void* tag) {
+::grpc::ClientAsyncReader< ::FileChunkReply>* SceneStreamerService::Stub::AsyncSendSceneRequestRaw(::grpc::ClientContext* context, const ::SceneRequest& request, ::grpc::CompletionQueue* cq, void* tag) {
   return ::grpc::internal::ClientAsyncReaderFactory< ::FileChunkReply>::Create(channel_.get(), cq, rpcmethod_SendSceneRequest_, context, request, true, tag);
 }
 
-::grpc::ClientAsyncReader< ::FileChunkReply>* SceneStreamer::Stub::PrepareAsyncSendSceneRequestRaw(::grpc::ClientContext* context, const ::SceneRequest& request, ::grpc::CompletionQueue* cq) {
+::grpc::ClientAsyncReader< ::FileChunkReply>* SceneStreamerService::Stub::PrepareAsyncSendSceneRequestRaw(::grpc::ClientContext* context, const ::SceneRequest& request, ::grpc::CompletionQueue* cq) {
   return ::grpc::internal::ClientAsyncReaderFactory< ::FileChunkReply>::Create(channel_.get(), cq, rpcmethod_SendSceneRequest_, context, request, false, nullptr);
 }
 
-SceneStreamer::Service::Service() {
+::grpc::Status SceneStreamerService::Stub::RequestSceneFilePaths(::grpc::ClientContext* context, const ::EmptyMsg& request, ::SceneFilepathsReply* response) {
+  return ::grpc::internal::BlockingUnaryCall< ::EmptyMsg, ::SceneFilepathsReply, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_RequestSceneFilePaths_, context, request, response);
+}
+
+void SceneStreamerService::Stub::async::RequestSceneFilePaths(::grpc::ClientContext* context, const ::EmptyMsg* request, ::SceneFilepathsReply* response, std::function<void(::grpc::Status)> f) {
+  ::grpc::internal::CallbackUnaryCall< ::EmptyMsg, ::SceneFilepathsReply, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_RequestSceneFilePaths_, context, request, response, std::move(f));
+}
+
+void SceneStreamerService::Stub::async::RequestSceneFilePaths(::grpc::ClientContext* context, const ::EmptyMsg* request, ::SceneFilepathsReply* response, ::grpc::ClientUnaryReactor* reactor) {
+  ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_RequestSceneFilePaths_, context, request, response, reactor);
+}
+
+::grpc::ClientAsyncResponseReader< ::SceneFilepathsReply>* SceneStreamerService::Stub::PrepareAsyncRequestSceneFilePathsRaw(::grpc::ClientContext* context, const ::EmptyMsg& request, ::grpc::CompletionQueue* cq) {
+  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::SceneFilepathsReply, ::EmptyMsg, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_RequestSceneFilePaths_, context, request);
+}
+
+::grpc::ClientAsyncResponseReader< ::SceneFilepathsReply>* SceneStreamerService::Stub::AsyncRequestSceneFilePathsRaw(::grpc::ClientContext* context, const ::EmptyMsg& request, ::grpc::CompletionQueue* cq) {
+  auto* result =
+    this->PrepareAsyncRequestSceneFilePathsRaw(context, request, cq);
+  result->StartCall();
+  return result;
+}
+
+SceneStreamerService::Service::Service() {
   AddMethod(new ::grpc::internal::RpcServiceMethod(
-      SceneStreamer_method_names[0],
+      SceneStreamerService_method_names[0],
       ::grpc::internal::RpcMethod::SERVER_STREAMING,
-      new ::grpc::internal::ServerStreamingHandler< SceneStreamer::Service, ::SceneRequest, ::FileChunkReply>(
-          [](SceneStreamer::Service* service,
+      new ::grpc::internal::ServerStreamingHandler< SceneStreamerService::Service, ::SceneRequest, ::FileChunkReply>(
+          [](SceneStreamerService::Service* service,
              ::grpc::ServerContext* ctx,
              const ::SceneRequest* req,
              ::grpc::ServerWriter<::FileChunkReply>* writer) {
                return service->SendSceneRequest(ctx, req, writer);
              }, this)));
+  AddMethod(new ::grpc::internal::RpcServiceMethod(
+      SceneStreamerService_method_names[1],
+      ::grpc::internal::RpcMethod::NORMAL_RPC,
+      new ::grpc::internal::RpcMethodHandler< SceneStreamerService::Service, ::EmptyMsg, ::SceneFilepathsReply, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
+          [](SceneStreamerService::Service* service,
+             ::grpc::ServerContext* ctx,
+             const ::EmptyMsg* req,
+             ::SceneFilepathsReply* resp) {
+               return service->RequestSceneFilePaths(ctx, req, resp);
+             }, this)));
 }
 
-SceneStreamer::Service::~Service() {
+SceneStreamerService::Service::~Service() {
 }
 
-::grpc::Status SceneStreamer::Service::SendSceneRequest(::grpc::ServerContext* context, const ::SceneRequest* request, ::grpc::ServerWriter< ::FileChunkReply>* writer) {
+::grpc::Status SceneStreamerService::Service::SendSceneRequest(::grpc::ServerContext* context, const ::SceneRequest* request, ::grpc::ServerWriter< ::FileChunkReply>* writer) {
   (void) context;
   (void) request;
   (void) writer;
+  return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+}
+
+::grpc::Status SceneStreamerService::Service::RequestSceneFilePaths(::grpc::ServerContext* context, const ::EmptyMsg* request, ::SceneFilepathsReply* response) {
+  (void) context;
+  (void) request;
+  (void) response;
   return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
 }
 

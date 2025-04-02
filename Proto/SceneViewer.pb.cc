@@ -52,6 +52,32 @@ struct SceneRequestDefaultTypeInternal {
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
     PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 SceneRequestDefaultTypeInternal _SceneRequest_default_instance_;
 
+inline constexpr SceneFilepathsReply::Impl_::Impl_(
+    ::_pbi::ConstantInitialized) noexcept
+      : paths_{},
+        filenames_{},
+        _cached_size_{0} {}
+
+template <typename>
+PROTOBUF_CONSTEXPR SceneFilepathsReply::SceneFilepathsReply(::_pbi::ConstantInitialized)
+#if defined(PROTOBUF_CUSTOM_VTABLE)
+    : ::google::protobuf::Message(_class_data_.base()),
+#else   // PROTOBUF_CUSTOM_VTABLE
+    : ::google::protobuf::Message(),
+#endif  // PROTOBUF_CUSTOM_VTABLE
+      _impl_(::_pbi::ConstantInitialized()) {
+}
+struct SceneFilepathsReplyDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR SceneFilepathsReplyDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
+  ~SceneFilepathsReplyDefaultTypeInternal() {}
+  union {
+    SceneFilepathsReply _instance;
+  };
+};
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 SceneFilepathsReplyDefaultTypeInternal _SceneFilepathsReply_default_instance_;
+
 inline constexpr FileChunkReply::Impl_::Impl_(
     ::_pbi::ConstantInitialized) noexcept
       : objfilename_(
@@ -83,6 +109,24 @@ struct FileChunkReplyDefaultTypeInternal {
 
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
     PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 FileChunkReplyDefaultTypeInternal _FileChunkReply_default_instance_;
+              template <typename>
+PROTOBUF_CONSTEXPR EmptyMsg::EmptyMsg(::_pbi::ConstantInitialized)
+#if defined(PROTOBUF_CUSTOM_VTABLE)
+    : ::google::protobuf::internal::ZeroFieldsBase(_class_data_.base()){}
+#else   // PROTOBUF_CUSTOM_VTABLE
+    : ::google::protobuf::internal::ZeroFieldsBase() {
+}
+#endif  // PROTOBUF_CUSTOM_VTABLE
+struct EmptyMsgDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR EmptyMsgDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
+  ~EmptyMsgDefaultTypeInternal() {}
+  union {
+    EmptyMsg _instance;
+  };
+};
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 EmptyMsgDefaultTypeInternal _EmptyMsg_default_instance_;
 static constexpr const ::_pb::EnumDescriptor**
     file_level_enum_descriptors_SceneViewer_2eproto = nullptr;
 static constexpr const ::_pb::ServiceDescriptor**
@@ -111,37 +155,63 @@ const ::uint32_t
         PROTOBUF_FIELD_OFFSET(::FileChunkReply, _impl_.chunk1024_),
         PROTOBUF_FIELD_OFFSET(::FileChunkReply, _impl_.chunkorder_),
         PROTOBUF_FIELD_OFFSET(::FileChunkReply, _impl_.chunktotal_),
+        ~0u,  // no _has_bits_
+        PROTOBUF_FIELD_OFFSET(::EmptyMsg, _internal_metadata_),
+        ~0u,  // no _extensions_
+        ~0u,  // no _oneof_case_
+        ~0u,  // no _weak_field_map_
+        ~0u,  // no _inlined_string_donated_
+        ~0u,  // no _split_
+        ~0u,  // no sizeof(Split)
+        ~0u,  // no _has_bits_
+        PROTOBUF_FIELD_OFFSET(::SceneFilepathsReply, _internal_metadata_),
+        ~0u,  // no _extensions_
+        ~0u,  // no _oneof_case_
+        ~0u,  // no _weak_field_map_
+        ~0u,  // no _inlined_string_donated_
+        ~0u,  // no _split_
+        ~0u,  // no sizeof(Split)
+        PROTOBUF_FIELD_OFFSET(::SceneFilepathsReply, _impl_.paths_),
+        PROTOBUF_FIELD_OFFSET(::SceneFilepathsReply, _impl_.filenames_),
 };
 
 static const ::_pbi::MigrationSchema
     schemas[] ABSL_ATTRIBUTE_SECTION_VARIABLE(protodesc_cold) = {
         {0, -1, -1, sizeof(::SceneRequest)},
         {9, -1, -1, sizeof(::FileChunkReply)},
+        {21, -1, -1, sizeof(::EmptyMsg)},
+        {29, -1, -1, sizeof(::SceneFilepathsReply)},
 };
 static const ::_pb::Message* const file_default_instances[] = {
     &::_SceneRequest_default_instance_._instance,
     &::_FileChunkReply_default_instance_._instance,
+    &::_EmptyMsg_default_instance_._instance,
+    &::_SceneFilepathsReply_default_instance_._instance,
 };
 const char descriptor_table_protodef_SceneViewer_2eproto[] ABSL_ATTRIBUTE_SECTION_VARIABLE(
     protodesc_cold) = {
     "\n\021SceneViewer.proto\"!\n\014SceneRequest\022\021\n\ts"
     "ceneName\030\001 \001(\t\"`\n\016FileChunkReply\022\023\n\013objF"
     "ilename\030\001 \001(\t\022\021\n\tchunk1024\030\002 \001(\014\022\022\n\nchun"
-    "kOrder\030\003 \001(\005\022\022\n\nchunkTotal\030\004 \001(\0052E\n\rScen"
-    "eStreamer\0224\n\020SendSceneRequest\022\r.SceneReq"
-    "uest\032\017.FileChunkReply0\001b\006proto3"
+    "kOrder\030\003 \001(\005\022\022\n\nchunkTotal\030\004 \001(\005\"\n\n\010Empt"
+    "yMsg\"7\n\023SceneFilepathsReply\022\r\n\005paths\030\001 \003"
+    "(\t\022\021\n\tfilenames\030\002 \003(\t2\206\001\n\024SceneStreamerS"
+    "ervice\0224\n\020SendSceneRequest\022\r.SceneReques"
+    "t\032\017.FileChunkReply0\001\0228\n\025RequestSceneFile"
+    "Paths\022\t.EmptyMsg\032\024.SceneFilepathsReplyb\006"
+    "proto3"
 };
 static ::absl::once_flag descriptor_table_SceneViewer_2eproto_once;
 PROTOBUF_CONSTINIT const ::_pbi::DescriptorTable descriptor_table_SceneViewer_2eproto = {
     false,
     false,
-    231,
+    366,
     descriptor_table_protodef_SceneViewer_2eproto,
     "SceneViewer.proto",
     &descriptor_table_SceneViewer_2eproto_once,
     nullptr,
     0,
-    2,
+    4,
     schemas,
     file_default_instances,
     TableStruct_SceneViewer_2eproto::offsets,
@@ -698,6 +768,385 @@ void FileChunkReply::InternalSwap(FileChunkReply* PROTOBUF_RESTRICT other) {
 }
 
 ::google::protobuf::Metadata FileChunkReply::GetMetadata() const {
+  return ::google::protobuf::Message::GetMetadataImpl(GetClassData()->full());
+}
+// ===================================================================
+
+class EmptyMsg::_Internal {
+ public:
+};
+
+EmptyMsg::EmptyMsg(::google::protobuf::Arena* arena)
+#if defined(PROTOBUF_CUSTOM_VTABLE)
+    : ::google::protobuf::internal::ZeroFieldsBase(arena, _class_data_.base()) {
+#else   // PROTOBUF_CUSTOM_VTABLE
+    : ::google::protobuf::internal::ZeroFieldsBase(arena) {
+#endif  // PROTOBUF_CUSTOM_VTABLE
+  // @@protoc_insertion_point(arena_constructor:EmptyMsg)
+}
+EmptyMsg::EmptyMsg(
+    ::google::protobuf::Arena* arena,
+    const EmptyMsg& from)
+#if defined(PROTOBUF_CUSTOM_VTABLE)
+    : ::google::protobuf::internal::ZeroFieldsBase(arena, _class_data_.base()) {
+#else   // PROTOBUF_CUSTOM_VTABLE
+    : ::google::protobuf::internal::ZeroFieldsBase(arena) {
+#endif  // PROTOBUF_CUSTOM_VTABLE
+  EmptyMsg* const _this = this;
+  (void)_this;
+  _internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(
+      from._internal_metadata_);
+
+  // @@protoc_insertion_point(copy_constructor:EmptyMsg)
+}
+
+inline void* EmptyMsg::PlacementNew_(const void*, void* mem,
+                                        ::google::protobuf::Arena* arena) {
+  return ::new (mem) EmptyMsg(arena);
+}
+constexpr auto EmptyMsg::InternalNewImpl_() {
+  return ::google::protobuf::internal::MessageCreator::ZeroInit(sizeof(EmptyMsg),
+                                            alignof(EmptyMsg));
+}
+PROTOBUF_CONSTINIT
+PROTOBUF_ATTRIBUTE_INIT_PRIORITY1
+const ::google::protobuf::internal::ClassDataFull EmptyMsg::_class_data_ = {
+    ::google::protobuf::internal::ClassData{
+        &_EmptyMsg_default_instance_._instance,
+        &_table_.header,
+        nullptr,  // OnDemandRegisterArenaDtor
+        nullptr,  // IsInitialized
+        &EmptyMsg::MergeImpl,
+        ::google::protobuf::internal::ZeroFieldsBase::GetNewImpl<EmptyMsg>(),
+#if defined(PROTOBUF_CUSTOM_VTABLE)
+        &EmptyMsg::SharedDtor,
+        ::google::protobuf::internal::ZeroFieldsBase::GetClearImpl<EmptyMsg>(), &EmptyMsg::ByteSizeLong,
+            &EmptyMsg::_InternalSerialize,
+#endif  // PROTOBUF_CUSTOM_VTABLE
+        PROTOBUF_FIELD_OFFSET(EmptyMsg, _impl_._cached_size_),
+        false,
+    },
+    &EmptyMsg::kDescriptorMethods,
+    &descriptor_table_SceneViewer_2eproto,
+    nullptr,  // tracker
+};
+const ::google::protobuf::internal::ClassData* EmptyMsg::GetClassData() const {
+  ::google::protobuf::internal::PrefetchToLocalCache(&_class_data_);
+  ::google::protobuf::internal::PrefetchToLocalCache(_class_data_.tc_table);
+  return _class_data_.base();
+}
+PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1
+const ::_pbi::TcParseTable<0, 0, 0, 0, 2> EmptyMsg::_table_ = {
+  {
+    0,  // no _has_bits_
+    0, // no _extensions_
+    0, 0,  // max_field_number, fast_idx_mask
+    offsetof(decltype(_table_), field_lookup_table),
+    4294967295,  // skipmap
+    offsetof(decltype(_table_), field_names),  // no field_entries
+    0,  // num_field_entries
+    0,  // num_aux_entries
+    offsetof(decltype(_table_), field_names),  // no aux_entries
+    _class_data_.base(),
+    nullptr,  // post_loop_handler
+    ::_pbi::TcParser::GenericFallback,  // fallback
+    #ifdef PROTOBUF_PREFETCH_PARSE_TABLE
+    ::_pbi::TcParser::GetTable<::EmptyMsg>(),  // to_prefetch
+    #endif  // PROTOBUF_PREFETCH_PARSE_TABLE
+  }, {{
+    {::_pbi::TcParser::MiniParse, {}},
+  }}, {{
+    65535, 65535
+  }},
+  // no field_entries, or aux_entries
+  {{
+  }},
+};
+
+
+
+
+
+
+
+
+::google::protobuf::Metadata EmptyMsg::GetMetadata() const {
+  return ::google::protobuf::internal::ZeroFieldsBase::GetMetadataImpl(GetClassData()->full());
+}
+// ===================================================================
+
+class SceneFilepathsReply::_Internal {
+ public:
+};
+
+SceneFilepathsReply::SceneFilepathsReply(::google::protobuf::Arena* arena)
+#if defined(PROTOBUF_CUSTOM_VTABLE)
+    : ::google::protobuf::Message(arena, _class_data_.base()) {
+#else   // PROTOBUF_CUSTOM_VTABLE
+    : ::google::protobuf::Message(arena) {
+#endif  // PROTOBUF_CUSTOM_VTABLE
+  SharedCtor(arena);
+  // @@protoc_insertion_point(arena_constructor:SceneFilepathsReply)
+}
+inline PROTOBUF_NDEBUG_INLINE SceneFilepathsReply::Impl_::Impl_(
+    ::google::protobuf::internal::InternalVisibility visibility, ::google::protobuf::Arena* arena,
+    const Impl_& from, const ::SceneFilepathsReply& from_msg)
+      : paths_{visibility, arena, from.paths_},
+        filenames_{visibility, arena, from.filenames_},
+        _cached_size_{0} {}
+
+SceneFilepathsReply::SceneFilepathsReply(
+    ::google::protobuf::Arena* arena,
+    const SceneFilepathsReply& from)
+#if defined(PROTOBUF_CUSTOM_VTABLE)
+    : ::google::protobuf::Message(arena, _class_data_.base()) {
+#else   // PROTOBUF_CUSTOM_VTABLE
+    : ::google::protobuf::Message(arena) {
+#endif  // PROTOBUF_CUSTOM_VTABLE
+  SceneFilepathsReply* const _this = this;
+  (void)_this;
+  _internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(
+      from._internal_metadata_);
+  new (&_impl_) Impl_(internal_visibility(), arena, from._impl_, from);
+
+  // @@protoc_insertion_point(copy_constructor:SceneFilepathsReply)
+}
+inline PROTOBUF_NDEBUG_INLINE SceneFilepathsReply::Impl_::Impl_(
+    ::google::protobuf::internal::InternalVisibility visibility,
+    ::google::protobuf::Arena* arena)
+      : paths_{visibility, arena},
+        filenames_{visibility, arena},
+        _cached_size_{0} {}
+
+inline void SceneFilepathsReply::SharedCtor(::_pb::Arena* arena) {
+  new (&_impl_) Impl_(internal_visibility(), arena);
+}
+SceneFilepathsReply::~SceneFilepathsReply() {
+  // @@protoc_insertion_point(destructor:SceneFilepathsReply)
+  SharedDtor(*this);
+}
+inline void SceneFilepathsReply::SharedDtor(MessageLite& self) {
+  SceneFilepathsReply& this_ = static_cast<SceneFilepathsReply&>(self);
+  this_._internal_metadata_.Delete<::google::protobuf::UnknownFieldSet>();
+  ABSL_DCHECK(this_.GetArena() == nullptr);
+  this_._impl_.~Impl_();
+}
+
+inline void* SceneFilepathsReply::PlacementNew_(const void*, void* mem,
+                                        ::google::protobuf::Arena* arena) {
+  return ::new (mem) SceneFilepathsReply(arena);
+}
+constexpr auto SceneFilepathsReply::InternalNewImpl_() {
+  constexpr auto arena_bits = ::google::protobuf::internal::EncodePlacementArenaOffsets({
+      PROTOBUF_FIELD_OFFSET(SceneFilepathsReply, _impl_.paths_) +
+          decltype(SceneFilepathsReply::_impl_.paths_)::
+              InternalGetArenaOffset(
+                  ::google::protobuf::Message::internal_visibility()),
+      PROTOBUF_FIELD_OFFSET(SceneFilepathsReply, _impl_.filenames_) +
+          decltype(SceneFilepathsReply::_impl_.filenames_)::
+              InternalGetArenaOffset(
+                  ::google::protobuf::Message::internal_visibility()),
+  });
+  if (arena_bits.has_value()) {
+    return ::google::protobuf::internal::MessageCreator::ZeroInit(
+        sizeof(SceneFilepathsReply), alignof(SceneFilepathsReply), *arena_bits);
+  } else {
+    return ::google::protobuf::internal::MessageCreator(&SceneFilepathsReply::PlacementNew_,
+                                 sizeof(SceneFilepathsReply),
+                                 alignof(SceneFilepathsReply));
+  }
+}
+PROTOBUF_CONSTINIT
+PROTOBUF_ATTRIBUTE_INIT_PRIORITY1
+const ::google::protobuf::internal::ClassDataFull SceneFilepathsReply::_class_data_ = {
+    ::google::protobuf::internal::ClassData{
+        &_SceneFilepathsReply_default_instance_._instance,
+        &_table_.header,
+        nullptr,  // OnDemandRegisterArenaDtor
+        nullptr,  // IsInitialized
+        &SceneFilepathsReply::MergeImpl,
+        ::google::protobuf::Message::GetNewImpl<SceneFilepathsReply>(),
+#if defined(PROTOBUF_CUSTOM_VTABLE)
+        &SceneFilepathsReply::SharedDtor,
+        ::google::protobuf::Message::GetClearImpl<SceneFilepathsReply>(), &SceneFilepathsReply::ByteSizeLong,
+            &SceneFilepathsReply::_InternalSerialize,
+#endif  // PROTOBUF_CUSTOM_VTABLE
+        PROTOBUF_FIELD_OFFSET(SceneFilepathsReply, _impl_._cached_size_),
+        false,
+    },
+    &SceneFilepathsReply::kDescriptorMethods,
+    &descriptor_table_SceneViewer_2eproto,
+    nullptr,  // tracker
+};
+const ::google::protobuf::internal::ClassData* SceneFilepathsReply::GetClassData() const {
+  ::google::protobuf::internal::PrefetchToLocalCache(&_class_data_);
+  ::google::protobuf::internal::PrefetchToLocalCache(_class_data_.tc_table);
+  return _class_data_.base();
+}
+PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1
+const ::_pbi::TcParseTable<1, 2, 0, 42, 2> SceneFilepathsReply::_table_ = {
+  {
+    0,  // no _has_bits_
+    0, // no _extensions_
+    2, 8,  // max_field_number, fast_idx_mask
+    offsetof(decltype(_table_), field_lookup_table),
+    4294967292,  // skipmap
+    offsetof(decltype(_table_), field_entries),
+    2,  // num_field_entries
+    0,  // num_aux_entries
+    offsetof(decltype(_table_), field_names),  // no aux_entries
+    _class_data_.base(),
+    nullptr,  // post_loop_handler
+    ::_pbi::TcParser::GenericFallback,  // fallback
+    #ifdef PROTOBUF_PREFETCH_PARSE_TABLE
+    ::_pbi::TcParser::GetTable<::SceneFilepathsReply>(),  // to_prefetch
+    #endif  // PROTOBUF_PREFETCH_PARSE_TABLE
+  }, {{
+    // repeated string filenames = 2;
+    {::_pbi::TcParser::FastUR1,
+     {18, 63, 0, PROTOBUF_FIELD_OFFSET(SceneFilepathsReply, _impl_.filenames_)}},
+    // repeated string paths = 1;
+    {::_pbi::TcParser::FastUR1,
+     {10, 63, 0, PROTOBUF_FIELD_OFFSET(SceneFilepathsReply, _impl_.paths_)}},
+  }}, {{
+    65535, 65535
+  }}, {{
+    // repeated string paths = 1;
+    {PROTOBUF_FIELD_OFFSET(SceneFilepathsReply, _impl_.paths_), 0, 0,
+    (0 | ::_fl::kFcRepeated | ::_fl::kUtf8String | ::_fl::kRepSString)},
+    // repeated string filenames = 2;
+    {PROTOBUF_FIELD_OFFSET(SceneFilepathsReply, _impl_.filenames_), 0, 0,
+    (0 | ::_fl::kFcRepeated | ::_fl::kUtf8String | ::_fl::kRepSString)},
+  }},
+  // no aux_entries
+  {{
+    "\23\5\11\0\0\0\0\0"
+    "SceneFilepathsReply"
+    "paths"
+    "filenames"
+  }},
+};
+
+PROTOBUF_NOINLINE void SceneFilepathsReply::Clear() {
+// @@protoc_insertion_point(message_clear_start:SceneFilepathsReply)
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  ::uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  _impl_.paths_.Clear();
+  _impl_.filenames_.Clear();
+  _internal_metadata_.Clear<::google::protobuf::UnknownFieldSet>();
+}
+
+#if defined(PROTOBUF_CUSTOM_VTABLE)
+        ::uint8_t* SceneFilepathsReply::_InternalSerialize(
+            const MessageLite& base, ::uint8_t* target,
+            ::google::protobuf::io::EpsCopyOutputStream* stream) {
+          const SceneFilepathsReply& this_ = static_cast<const SceneFilepathsReply&>(base);
+#else   // PROTOBUF_CUSTOM_VTABLE
+        ::uint8_t* SceneFilepathsReply::_InternalSerialize(
+            ::uint8_t* target,
+            ::google::protobuf::io::EpsCopyOutputStream* stream) const {
+          const SceneFilepathsReply& this_ = *this;
+#endif  // PROTOBUF_CUSTOM_VTABLE
+          // @@protoc_insertion_point(serialize_to_array_start:SceneFilepathsReply)
+          ::uint32_t cached_has_bits = 0;
+          (void)cached_has_bits;
+
+          // repeated string paths = 1;
+          for (int i = 0, n = this_._internal_paths_size(); i < n; ++i) {
+            const auto& s = this_._internal_paths().Get(i);
+            ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+                s.data(), static_cast<int>(s.length()), ::google::protobuf::internal::WireFormatLite::SERIALIZE, "SceneFilepathsReply.paths");
+            target = stream->WriteString(1, s, target);
+          }
+
+          // repeated string filenames = 2;
+          for (int i = 0, n = this_._internal_filenames_size(); i < n; ++i) {
+            const auto& s = this_._internal_filenames().Get(i);
+            ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+                s.data(), static_cast<int>(s.length()), ::google::protobuf::internal::WireFormatLite::SERIALIZE, "SceneFilepathsReply.filenames");
+            target = stream->WriteString(2, s, target);
+          }
+
+          if (PROTOBUF_PREDICT_FALSE(this_._internal_metadata_.have_unknown_fields())) {
+            target =
+                ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
+                    this_._internal_metadata_.unknown_fields<::google::protobuf::UnknownFieldSet>(::google::protobuf::UnknownFieldSet::default_instance), target, stream);
+          }
+          // @@protoc_insertion_point(serialize_to_array_end:SceneFilepathsReply)
+          return target;
+        }
+
+#if defined(PROTOBUF_CUSTOM_VTABLE)
+        ::size_t SceneFilepathsReply::ByteSizeLong(const MessageLite& base) {
+          const SceneFilepathsReply& this_ = static_cast<const SceneFilepathsReply&>(base);
+#else   // PROTOBUF_CUSTOM_VTABLE
+        ::size_t SceneFilepathsReply::ByteSizeLong() const {
+          const SceneFilepathsReply& this_ = *this;
+#endif  // PROTOBUF_CUSTOM_VTABLE
+          // @@protoc_insertion_point(message_byte_size_start:SceneFilepathsReply)
+          ::size_t total_size = 0;
+
+          ::uint32_t cached_has_bits = 0;
+          // Prevent compiler warnings about cached_has_bits being unused
+          (void)cached_has_bits;
+
+          ::_pbi::Prefetch5LinesFrom7Lines(&this_);
+           {
+            // repeated string paths = 1;
+            {
+              total_size +=
+                  1 * ::google::protobuf::internal::FromIntSize(this_._internal_paths().size());
+              for (int i = 0, n = this_._internal_paths().size(); i < n; ++i) {
+                total_size += ::google::protobuf::internal::WireFormatLite::StringSize(
+                    this_._internal_paths().Get(i));
+              }
+            }
+            // repeated string filenames = 2;
+            {
+              total_size +=
+                  1 * ::google::protobuf::internal::FromIntSize(this_._internal_filenames().size());
+              for (int i = 0, n = this_._internal_filenames().size(); i < n; ++i) {
+                total_size += ::google::protobuf::internal::WireFormatLite::StringSize(
+                    this_._internal_filenames().Get(i));
+              }
+            }
+          }
+          return this_.MaybeComputeUnknownFieldsSize(total_size,
+                                                     &this_._impl_._cached_size_);
+        }
+
+void SceneFilepathsReply::MergeImpl(::google::protobuf::MessageLite& to_msg, const ::google::protobuf::MessageLite& from_msg) {
+  auto* const _this = static_cast<SceneFilepathsReply*>(&to_msg);
+  auto& from = static_cast<const SceneFilepathsReply&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:SceneFilepathsReply)
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  _this->_internal_mutable_paths()->MergeFrom(from._internal_paths());
+  _this->_internal_mutable_filenames()->MergeFrom(from._internal_filenames());
+  _this->_internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(from._internal_metadata_);
+}
+
+void SceneFilepathsReply::CopyFrom(const SceneFilepathsReply& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:SceneFilepathsReply)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+
+void SceneFilepathsReply::InternalSwap(SceneFilepathsReply* PROTOBUF_RESTRICT other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  _impl_.paths_.InternalSwap(&other->_impl_.paths_);
+  _impl_.filenames_.InternalSwap(&other->_impl_.filenames_);
+}
+
+::google::protobuf::Metadata SceneFilepathsReply::GetMetadata() const {
   return ::google::protobuf::Message::GetMetadataImpl(GetClassData()->full());
 }
 // @@protoc_insertion_point(namespace_scope)

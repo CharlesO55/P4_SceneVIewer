@@ -20,6 +20,7 @@
 #include "google/protobuf/io/coded_stream.h"
 #include "google/protobuf/arena.h"
 #include "google/protobuf/arenastring.h"
+#include "google/protobuf/generated_message_bases.h"
 #include "google/protobuf/generated_message_tctable_decl.h"
 #include "google/protobuf/generated_message_util.h"
 #include "google/protobuf/metadata_lite.h"
@@ -51,9 +52,15 @@ struct TableStruct_SceneViewer_2eproto {
 };
 extern const ::google::protobuf::internal::DescriptorTable
     descriptor_table_SceneViewer_2eproto;
+class EmptyMsg;
+struct EmptyMsgDefaultTypeInternal;
+extern EmptyMsgDefaultTypeInternal _EmptyMsg_default_instance_;
 class FileChunkReply;
 struct FileChunkReplyDefaultTypeInternal;
 extern FileChunkReplyDefaultTypeInternal _FileChunkReply_default_instance_;
+class SceneFilepathsReply;
+struct SceneFilepathsReplyDefaultTypeInternal;
+extern SceneFilepathsReplyDefaultTypeInternal _SceneFilepathsReply_default_instance_;
 class SceneRequest;
 struct SceneRequestDefaultTypeInternal;
 extern SceneRequestDefaultTypeInternal _SceneRequest_default_instance_;
@@ -256,6 +263,232 @@ class SceneRequest final : public ::google::protobuf::Message
                           ::google::protobuf::Arena* arena, const Impl_& from,
                           const SceneRequest& from_msg);
     ::google::protobuf::internal::ArenaStringPtr scenename_;
+    ::google::protobuf::internal::CachedSize _cached_size_;
+    PROTOBUF_TSAN_DECLARE_MEMBER
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_SceneViewer_2eproto;
+};
+// -------------------------------------------------------------------
+
+class SceneFilepathsReply final : public ::google::protobuf::Message
+/* @@protoc_insertion_point(class_definition:SceneFilepathsReply) */ {
+ public:
+  inline SceneFilepathsReply() : SceneFilepathsReply(nullptr) {}
+  ~SceneFilepathsReply() PROTOBUF_FINAL;
+
+#if defined(PROTOBUF_CUSTOM_VTABLE)
+  void operator delete(SceneFilepathsReply* msg, std::destroying_delete_t) {
+    SharedDtor(*msg);
+    ::google::protobuf::internal::SizedDelete(msg, sizeof(SceneFilepathsReply));
+  }
+#endif
+
+  template <typename = void>
+  explicit PROTOBUF_CONSTEXPR SceneFilepathsReply(
+      ::google::protobuf::internal::ConstantInitialized);
+
+  inline SceneFilepathsReply(const SceneFilepathsReply& from) : SceneFilepathsReply(nullptr, from) {}
+  inline SceneFilepathsReply(SceneFilepathsReply&& from) noexcept
+      : SceneFilepathsReply(nullptr, std::move(from)) {}
+  inline SceneFilepathsReply& operator=(const SceneFilepathsReply& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline SceneFilepathsReply& operator=(SceneFilepathsReply&& from) noexcept {
+    if (this == &from) return *this;
+    if (::google::protobuf::internal::CanMoveWithInternalSwap(GetArena(), from.GetArena())) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const
+      ABSL_ATTRIBUTE_LIFETIME_BOUND {
+    return _internal_metadata_.unknown_fields<::google::protobuf::UnknownFieldSet>(::google::protobuf::UnknownFieldSet::default_instance);
+  }
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields()
+      ABSL_ATTRIBUTE_LIFETIME_BOUND {
+    return _internal_metadata_.mutable_unknown_fields<::google::protobuf::UnknownFieldSet>();
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::google::protobuf::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::google::protobuf::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const SceneFilepathsReply& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const SceneFilepathsReply* internal_default_instance() {
+    return reinterpret_cast<const SceneFilepathsReply*>(
+        &_SceneFilepathsReply_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages = 3;
+  friend void swap(SceneFilepathsReply& a, SceneFilepathsReply& b) { a.Swap(&b); }
+  inline void Swap(SceneFilepathsReply* other) {
+    if (other == this) return;
+    if (::google::protobuf::internal::CanUseInternalSwap(GetArena(), other->GetArena())) {
+      InternalSwap(other);
+    } else {
+      ::google::protobuf::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(SceneFilepathsReply* other) {
+    if (other == this) return;
+    ABSL_DCHECK(GetArena() == other->GetArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  SceneFilepathsReply* New(::google::protobuf::Arena* arena = nullptr) const {
+    return ::google::protobuf::Message::DefaultConstruct<SceneFilepathsReply>(arena);
+  }
+  using ::google::protobuf::Message::CopyFrom;
+  void CopyFrom(const SceneFilepathsReply& from);
+  using ::google::protobuf::Message::MergeFrom;
+  void MergeFrom(const SceneFilepathsReply& from) { SceneFilepathsReply::MergeImpl(*this, from); }
+
+  private:
+  static void MergeImpl(
+      ::google::protobuf::MessageLite& to_msg,
+      const ::google::protobuf::MessageLite& from_msg);
+
+  public:
+  bool IsInitialized() const {
+    return true;
+  }
+  ABSL_ATTRIBUTE_REINITIALIZES void Clear() PROTOBUF_FINAL;
+  #if defined(PROTOBUF_CUSTOM_VTABLE)
+  private:
+  static ::size_t ByteSizeLong(const ::google::protobuf::MessageLite& msg);
+  static ::uint8_t* _InternalSerialize(
+      const MessageLite& msg, ::uint8_t* target,
+      ::google::protobuf::io::EpsCopyOutputStream* stream);
+
+  public:
+  ::size_t ByteSizeLong() const { return ByteSizeLong(*this); }
+  ::uint8_t* _InternalSerialize(
+      ::uint8_t* target,
+      ::google::protobuf::io::EpsCopyOutputStream* stream) const {
+    return _InternalSerialize(*this, target, stream);
+  }
+  #else   // PROTOBUF_CUSTOM_VTABLE
+  ::size_t ByteSizeLong() const final;
+  ::uint8_t* _InternalSerialize(
+      ::uint8_t* target,
+      ::google::protobuf::io::EpsCopyOutputStream* stream) const final;
+  #endif  // PROTOBUF_CUSTOM_VTABLE
+  int GetCachedSize() const { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::google::protobuf::Arena* arena);
+  static void SharedDtor(MessageLite& self);
+  void InternalSwap(SceneFilepathsReply* other);
+ private:
+  template <typename T>
+  friend ::absl::string_view(
+      ::google::protobuf::internal::GetAnyMessageName)();
+  static ::absl::string_view FullMessageName() { return "SceneFilepathsReply"; }
+
+ protected:
+  explicit SceneFilepathsReply(::google::protobuf::Arena* arena);
+  SceneFilepathsReply(::google::protobuf::Arena* arena, const SceneFilepathsReply& from);
+  SceneFilepathsReply(::google::protobuf::Arena* arena, SceneFilepathsReply&& from) noexcept
+      : SceneFilepathsReply(arena) {
+    *this = ::std::move(from);
+  }
+  const ::google::protobuf::internal::ClassData* GetClassData() const PROTOBUF_FINAL;
+  static void* PlacementNew_(const void*, void* mem,
+                             ::google::protobuf::Arena* arena);
+  static constexpr auto InternalNewImpl_();
+  static const ::google::protobuf::internal::ClassDataFull _class_data_;
+
+ public:
+  ::google::protobuf::Metadata GetMetadata() const;
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+  enum : int {
+    kPathsFieldNumber = 1,
+    kFilenamesFieldNumber = 2,
+  };
+  // repeated string paths = 1;
+  int paths_size() const;
+  private:
+  int _internal_paths_size() const;
+
+  public:
+  void clear_paths() ;
+  const std::string& paths(int index) const;
+  std::string* mutable_paths(int index);
+  template <typename Arg_ = const std::string&, typename... Args_>
+  void set_paths(int index, Arg_&& value, Args_... args);
+  std::string* add_paths();
+  template <typename Arg_ = const std::string&, typename... Args_>
+  void add_paths(Arg_&& value, Args_... args);
+  const ::google::protobuf::RepeatedPtrField<std::string>& paths() const;
+  ::google::protobuf::RepeatedPtrField<std::string>* mutable_paths();
+
+  private:
+  const ::google::protobuf::RepeatedPtrField<std::string>& _internal_paths() const;
+  ::google::protobuf::RepeatedPtrField<std::string>* _internal_mutable_paths();
+
+  public:
+  // repeated string filenames = 2;
+  int filenames_size() const;
+  private:
+  int _internal_filenames_size() const;
+
+  public:
+  void clear_filenames() ;
+  const std::string& filenames(int index) const;
+  std::string* mutable_filenames(int index);
+  template <typename Arg_ = const std::string&, typename... Args_>
+  void set_filenames(int index, Arg_&& value, Args_... args);
+  std::string* add_filenames();
+  template <typename Arg_ = const std::string&, typename... Args_>
+  void add_filenames(Arg_&& value, Args_... args);
+  const ::google::protobuf::RepeatedPtrField<std::string>& filenames() const;
+  ::google::protobuf::RepeatedPtrField<std::string>* mutable_filenames();
+
+  private:
+  const ::google::protobuf::RepeatedPtrField<std::string>& _internal_filenames() const;
+  ::google::protobuf::RepeatedPtrField<std::string>* _internal_mutable_filenames();
+
+  public:
+  // @@protoc_insertion_point(class_scope:SceneFilepathsReply)
+ private:
+  class _Internal;
+  friend class ::google::protobuf::internal::TcParser;
+  static const ::google::protobuf::internal::TcParseTable<
+      1, 2, 0,
+      42, 2>
+      _table_;
+
+  friend class ::google::protobuf::MessageLite;
+  friend class ::google::protobuf::Arena;
+  template <typename T>
+  friend class ::google::protobuf::Arena::InternalHelper;
+  using InternalArenaConstructable_ = void;
+  using DestructorSkippable_ = void;
+  struct Impl_ {
+    inline explicit constexpr Impl_(
+        ::google::protobuf::internal::ConstantInitialized) noexcept;
+    inline explicit Impl_(::google::protobuf::internal::InternalVisibility visibility,
+                          ::google::protobuf::Arena* arena);
+    inline explicit Impl_(::google::protobuf::internal::InternalVisibility visibility,
+                          ::google::protobuf::Arena* arena, const Impl_& from,
+                          const SceneFilepathsReply& from_msg);
+    ::google::protobuf::RepeatedPtrField<std::string> paths_;
+    ::google::protobuf::RepeatedPtrField<std::string> filenames_;
     ::google::protobuf::internal::CachedSize _cached_size_;
     PROTOBUF_TSAN_DECLARE_MEMBER
   };
@@ -500,6 +733,151 @@ class FileChunkReply final : public ::google::protobuf::Message
   union { Impl_ _impl_; };
   friend struct ::TableStruct_SceneViewer_2eproto;
 };
+// -------------------------------------------------------------------
+
+class EmptyMsg final : public ::google::protobuf::internal::ZeroFieldsBase
+/* @@protoc_insertion_point(class_definition:EmptyMsg) */ {
+ public:
+  inline EmptyMsg() : EmptyMsg(nullptr) {}
+
+#if defined(PROTOBUF_CUSTOM_VTABLE)
+  void operator delete(EmptyMsg* msg, std::destroying_delete_t) {
+    SharedDtor(*msg);
+    ::google::protobuf::internal::SizedDelete(msg, sizeof(EmptyMsg));
+  }
+#endif
+
+  template <typename = void>
+  explicit PROTOBUF_CONSTEXPR EmptyMsg(
+      ::google::protobuf::internal::ConstantInitialized);
+
+  inline EmptyMsg(const EmptyMsg& from) : EmptyMsg(nullptr, from) {}
+  inline EmptyMsg(EmptyMsg&& from) noexcept
+      : EmptyMsg(nullptr, std::move(from)) {}
+  inline EmptyMsg& operator=(const EmptyMsg& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline EmptyMsg& operator=(EmptyMsg&& from) noexcept {
+    if (this == &from) return *this;
+    if (::google::protobuf::internal::CanMoveWithInternalSwap(GetArena(), from.GetArena())) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const
+      ABSL_ATTRIBUTE_LIFETIME_BOUND {
+    return _internal_metadata_.unknown_fields<::google::protobuf::UnknownFieldSet>(::google::protobuf::UnknownFieldSet::default_instance);
+  }
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields()
+      ABSL_ATTRIBUTE_LIFETIME_BOUND {
+    return _internal_metadata_.mutable_unknown_fields<::google::protobuf::UnknownFieldSet>();
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::google::protobuf::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::google::protobuf::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const EmptyMsg& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const EmptyMsg* internal_default_instance() {
+    return reinterpret_cast<const EmptyMsg*>(
+        &_EmptyMsg_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages = 2;
+  friend void swap(EmptyMsg& a, EmptyMsg& b) { a.Swap(&b); }
+  inline void Swap(EmptyMsg* other) {
+    if (other == this) return;
+    if (::google::protobuf::internal::CanUseInternalSwap(GetArena(), other->GetArena())) {
+      InternalSwap(other);
+    } else {
+      ::google::protobuf::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(EmptyMsg* other) {
+    if (other == this) return;
+    ABSL_DCHECK(GetArena() == other->GetArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  EmptyMsg* New(::google::protobuf::Arena* arena = nullptr) const {
+    return ::google::protobuf::internal::ZeroFieldsBase::DefaultConstruct<EmptyMsg>(arena);
+  }
+  using ::google::protobuf::internal::ZeroFieldsBase::CopyFrom;
+  inline void CopyFrom(const EmptyMsg& from) {
+    ::google::protobuf::internal::ZeroFieldsBase::CopyImpl(*this, from);
+  }
+  using ::google::protobuf::internal::ZeroFieldsBase::MergeFrom;
+  void MergeFrom(const EmptyMsg& from) {
+    ::google::protobuf::internal::ZeroFieldsBase::MergeImpl(*this, from);
+  }
+
+  public:
+  bool IsInitialized() const {
+    return true;
+  }
+ private:
+  template <typename T>
+  friend ::absl::string_view(
+      ::google::protobuf::internal::GetAnyMessageName)();
+  static ::absl::string_view FullMessageName() { return "EmptyMsg"; }
+
+ protected:
+  explicit EmptyMsg(::google::protobuf::Arena* arena);
+  EmptyMsg(::google::protobuf::Arena* arena, const EmptyMsg& from);
+  EmptyMsg(::google::protobuf::Arena* arena, EmptyMsg&& from) noexcept
+      : EmptyMsg(arena) {
+    *this = ::std::move(from);
+  }
+  const ::google::protobuf::internal::ClassData* GetClassData() const PROTOBUF_FINAL;
+  static void* PlacementNew_(const void*, void* mem,
+                             ::google::protobuf::Arena* arena);
+  static constexpr auto InternalNewImpl_();
+  static const ::google::protobuf::internal::ClassDataFull _class_data_;
+
+ public:
+  ::google::protobuf::Metadata GetMetadata() const;
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+  // @@protoc_insertion_point(class_scope:EmptyMsg)
+ private:
+  class _Internal;
+  friend class ::google::protobuf::internal::TcParser;
+  static const ::google::protobuf::internal::TcParseTable<
+      0, 0, 0,
+      0, 2>
+      _table_;
+
+  friend class ::google::protobuf::MessageLite;
+  friend class ::google::protobuf::Arena;
+  template <typename T>
+  friend class ::google::protobuf::Arena::InternalHelper;
+  using InternalArenaConstructable_ = void;
+  using DestructorSkippable_ = void;
+  struct Impl_ {
+    inline explicit constexpr Impl_(
+        ::google::protobuf::internal::ConstantInitialized) noexcept;
+    inline explicit Impl_(::google::protobuf::internal::InternalVisibility visibility,
+                          ::google::protobuf::Arena* arena);
+    inline explicit Impl_(::google::protobuf::internal::InternalVisibility visibility,
+                          ::google::protobuf::Arena* arena, const Impl_& from,
+                          const EmptyMsg& from_msg);
+    PROTOBUF_TSAN_DECLARE_MEMBER
+  };
+  friend struct ::TableStruct_SceneViewer_2eproto;
+};
 
 // ===================================================================
 
@@ -707,6 +1085,142 @@ inline ::int32_t FileChunkReply::_internal_chunktotal() const {
 inline void FileChunkReply::_internal_set_chunktotal(::int32_t value) {
   ::google::protobuf::internal::TSanWrite(&_impl_);
   _impl_.chunktotal_ = value;
+}
+
+// -------------------------------------------------------------------
+
+// EmptyMsg
+
+// -------------------------------------------------------------------
+
+// SceneFilepathsReply
+
+// repeated string paths = 1;
+inline int SceneFilepathsReply::_internal_paths_size() const {
+  return _internal_paths().size();
+}
+inline int SceneFilepathsReply::paths_size() const {
+  return _internal_paths_size();
+}
+inline void SceneFilepathsReply::clear_paths() {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  _impl_.paths_.Clear();
+}
+inline std::string* SceneFilepathsReply::add_paths() ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  std::string* _s = _internal_mutable_paths()->Add();
+  // @@protoc_insertion_point(field_add_mutable:SceneFilepathsReply.paths)
+  return _s;
+}
+inline const std::string& SceneFilepathsReply::paths(int index) const
+    ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  // @@protoc_insertion_point(field_get:SceneFilepathsReply.paths)
+  return _internal_paths().Get(index);
+}
+inline std::string* SceneFilepathsReply::mutable_paths(int index)
+    ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  // @@protoc_insertion_point(field_mutable:SceneFilepathsReply.paths)
+  return _internal_mutable_paths()->Mutable(index);
+}
+template <typename Arg_, typename... Args_>
+inline void SceneFilepathsReply::set_paths(int index, Arg_&& value, Args_... args) {
+  ::google::protobuf::internal::AssignToString(
+      *_internal_mutable_paths()->Mutable(index),
+      std::forward<Arg_>(value), args... );
+  // @@protoc_insertion_point(field_set:SceneFilepathsReply.paths)
+}
+template <typename Arg_, typename... Args_>
+inline void SceneFilepathsReply::add_paths(Arg_&& value, Args_... args) {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  ::google::protobuf::internal::AddToRepeatedPtrField(*_internal_mutable_paths(),
+                               std::forward<Arg_>(value),
+                               args... );
+  // @@protoc_insertion_point(field_add:SceneFilepathsReply.paths)
+}
+inline const ::google::protobuf::RepeatedPtrField<std::string>&
+SceneFilepathsReply::paths() const ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  // @@protoc_insertion_point(field_list:SceneFilepathsReply.paths)
+  return _internal_paths();
+}
+inline ::google::protobuf::RepeatedPtrField<std::string>*
+SceneFilepathsReply::mutable_paths() ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  // @@protoc_insertion_point(field_mutable_list:SceneFilepathsReply.paths)
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  return _internal_mutable_paths();
+}
+inline const ::google::protobuf::RepeatedPtrField<std::string>&
+SceneFilepathsReply::_internal_paths() const {
+  ::google::protobuf::internal::TSanRead(&_impl_);
+  return _impl_.paths_;
+}
+inline ::google::protobuf::RepeatedPtrField<std::string>*
+SceneFilepathsReply::_internal_mutable_paths() {
+  ::google::protobuf::internal::TSanRead(&_impl_);
+  return &_impl_.paths_;
+}
+
+// repeated string filenames = 2;
+inline int SceneFilepathsReply::_internal_filenames_size() const {
+  return _internal_filenames().size();
+}
+inline int SceneFilepathsReply::filenames_size() const {
+  return _internal_filenames_size();
+}
+inline void SceneFilepathsReply::clear_filenames() {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  _impl_.filenames_.Clear();
+}
+inline std::string* SceneFilepathsReply::add_filenames() ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  std::string* _s = _internal_mutable_filenames()->Add();
+  // @@protoc_insertion_point(field_add_mutable:SceneFilepathsReply.filenames)
+  return _s;
+}
+inline const std::string& SceneFilepathsReply::filenames(int index) const
+    ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  // @@protoc_insertion_point(field_get:SceneFilepathsReply.filenames)
+  return _internal_filenames().Get(index);
+}
+inline std::string* SceneFilepathsReply::mutable_filenames(int index)
+    ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  // @@protoc_insertion_point(field_mutable:SceneFilepathsReply.filenames)
+  return _internal_mutable_filenames()->Mutable(index);
+}
+template <typename Arg_, typename... Args_>
+inline void SceneFilepathsReply::set_filenames(int index, Arg_&& value, Args_... args) {
+  ::google::protobuf::internal::AssignToString(
+      *_internal_mutable_filenames()->Mutable(index),
+      std::forward<Arg_>(value), args... );
+  // @@protoc_insertion_point(field_set:SceneFilepathsReply.filenames)
+}
+template <typename Arg_, typename... Args_>
+inline void SceneFilepathsReply::add_filenames(Arg_&& value, Args_... args) {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  ::google::protobuf::internal::AddToRepeatedPtrField(*_internal_mutable_filenames(),
+                               std::forward<Arg_>(value),
+                               args... );
+  // @@protoc_insertion_point(field_add:SceneFilepathsReply.filenames)
+}
+inline const ::google::protobuf::RepeatedPtrField<std::string>&
+SceneFilepathsReply::filenames() const ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  // @@protoc_insertion_point(field_list:SceneFilepathsReply.filenames)
+  return _internal_filenames();
+}
+inline ::google::protobuf::RepeatedPtrField<std::string>*
+SceneFilepathsReply::mutable_filenames() ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  // @@protoc_insertion_point(field_mutable_list:SceneFilepathsReply.filenames)
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  return _internal_mutable_filenames();
+}
+inline const ::google::protobuf::RepeatedPtrField<std::string>&
+SceneFilepathsReply::_internal_filenames() const {
+  ::google::protobuf::internal::TSanRead(&_impl_);
+  return _impl_.filenames_;
+}
+inline ::google::protobuf::RepeatedPtrField<std::string>*
+SceneFilepathsReply::_internal_mutable_filenames() {
+  ::google::protobuf::internal::TSanRead(&_impl_);
+  return &_impl_.filenames_;
 }
 
 #ifdef __GNUC__

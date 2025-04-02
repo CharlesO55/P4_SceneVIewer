@@ -10,16 +10,18 @@
 #include "Settings.h"
 
 #include <fstream>
-
+#include <filesystem>
 
 grpc::Status FileServer::SendSceneRequest(grpc::ServerContext* context, const SceneRequest* request, grpc::ServerWriter<::FileChunkReply>* writer)
 {
 	std::cout << COLOR::Y << "[SERVER] Received request for: " << request->scenename() << COLOR::W << std::endl;
-
-	std::ifstream file(request->scenename(), std::ios::binary);
+	std::string filePath = SERVER_FOLDER + "/" + request->scenename();
+	
+	
+	std::ifstream file(filePath, std::ios::binary);
 	if (!file.is_open()) {
-		std::cout << COLOR::R << "[SERVER] Fail: " << request->scenename() << COLOR::W << std::endl;
-		return grpc::Status(grpc::StatusCode::NOT_FOUND, "File not found: " + request->scenename());
+		std::cout << COLOR::R << "[SERVER] Fail: " << filePath << COLOR::W << std::endl;
+		return grpc::Status(grpc::StatusCode::NOT_FOUND, "File not found: " + filePath);
 	}
 
 	const size_t buffer_size = 1024;
@@ -38,9 +40,23 @@ grpc::Status FileServer::SendSceneRequest(grpc::ServerContext* context, const Sc
 
 
 
-	std::cout << COLOR::G << "[SERVER] Sent: " << request->scenename() << COLOR::W << std::endl;
+	std::cout << COLOR::G << "[SERVER] Sent: " << filePath << COLOR::W << std::endl;
     return grpc::Status::OK;
 }
+
+grpc::Status FileServer::RequestSceneFilePaths(grpc::ServerContext* context, const EmptyMsg* request, SceneFilepathsReply* response)
+{
+	for (const auto& dir : std::filesystem::recursive_directory_iterator(SERVER_FOLDER)) {
+		if (std::filesystem::is_regular_file(dir)) {  
+			response->add_paths(std::filesystem::relative(dir.path().parent_path(), SERVER_FOLDER).string());
+			response->add_filenames(dir.path().filename().string());
+		}
+	}
+
+	return grpc::Status::OK;
+}
+
+
 
 
 void FileServer::RunServer(uint16_t port)
