@@ -21,12 +21,8 @@
   <ItemGroup>
     <ClCompile Include="FileClient.cpp" />
     <ClCompile Include="FileServer.cpp" />
-    <ClCompile Include="GreeterClient.cpp" />
-    <ClCompile Include="GreeterServer.cpp" />
     <ClCompile Include="IETThread.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Proto\helloworld.grpc.pb.cc" />
-    <ClCompile Include="Proto\helloworld.pb.cc" />
     <ClCompile Include="Proto\SceneViewer.grpc.pb.cc" />
     <ClCompile Include="Proto\SceneViewer.pb.cc" />
     <ClCompile Include="Settings.cpp" />
@@ -35,16 +31,11 @@
     <ClInclude Include="Settings.h" />
     <ClInclude Include="FileClient.h" />
     <ClInclude Include="FileServer.h" />
-    <ClInclude Include="GreeterClient.h" />
-    <ClInclude Include="GreeterServer.h" />
     <ClInclude Include="IETThread.h" />
-    <ClInclude Include="Proto\helloworld.grpc.pb.h" />
-    <ClInclude Include="Proto\helloworld.pb.h" />
     <ClInclude Include="Proto\SceneViewer.grpc.pb.h" />
     <ClInclude Include="Proto\SceneViewer.pb.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Proto\helloworld.proto" />
     <None Include="Proto\SceneViewer.proto" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

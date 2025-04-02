@@ -24,19 +24,7 @@
     <ClCompile Include="Proto\SceneViewer.grpc.pb.cc">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="GreeterClient.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="GreeterServer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="IETThread.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Proto\helloworld.grpc.pb.cc">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Proto\helloworld.pb.cc">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="FileServer.cpp">
@@ -56,19 +44,7 @@
     <ClInclude Include="Proto\SceneViewer.grpc.pb.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="GreeterClient.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="GreeterServer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="IETThread.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Proto\helloworld.grpc.pb.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Proto\helloworld.pb.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="FileServer.h">
@@ -83,6 +59,5 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Proto\SceneViewer.proto" />
-    <None Include="Proto\helloworld.proto" />
   </ItemGroup>
 </Project>
