@@ -9,6 +9,10 @@ PreviewScreen::PreviewScreen() : AUIScreen("PreviewScreen")
     this->textureID = 0;
     this->width = 0;
     this->height = 0;
+
+    this->loadingProgress = 0.0f;
+    this->isLoadingComplete = false;
+
     this->loadTexture("ClientFiles/Scene2/Test.jpg");
 }
 
@@ -17,10 +21,16 @@ PreviewScreen::~PreviewScreen()
     if (textureID) glDeleteTextures(1, &textureID); 
 }
 
+void PreviewScreen::updateLoadingProgress(float progress)
+{
+    this->loadingProgress = progress;
+    this->isLoadingComplete = (progress >= 1.0f);
+}
+
 void PreviewScreen::drawUI()
 {
     ImGui::SetNextWindowPos(ImVec2(10, 10), ImGuiCond_Always);
-    ImGui::SetNextWindowSize(ImVec2(300, 200), ImGuiCond_Always);
+    ImGui::SetNextWindowSize(ImVec2(350, 200), ImGuiCond_Always);
 
     ImGuiWindowFlags windowFlags = ImGuiWindowFlags_NoResize |
                                    ImGuiWindowFlags_NoMove |
@@ -31,10 +41,8 @@ void PreviewScreen::drawUI()
     ImGui::Begin("Scene 2", nullptr, windowFlags);
 
     ImVec2 windowSize = ImGui::GetContentRegionAvail();
-
     if (textureID != 0) {
         float aspect_ratio = static_cast<float>(height) / width;
-
         float display_width = windowSize.x;
         float display_height = display_width * aspect_ratio;
 
@@ -42,26 +50,50 @@ void PreviewScreen::drawUI()
             display_height = windowSize.y;
             display_width = display_height / aspect_ratio;
         }
-
         ImGui::Image((ImTextureID)(intptr_t)textureID, ImVec2(display_width, display_height));
-    }
-
+    } 
+    
     else 
         ImGui::Text("Failed to load image.");
 
-    ImGui::SetCursorPosY(windowSize.y - ImGui::GetFrameHeightWithSpacing()); 
-    ImGui::SetCursorPosX((windowSize.x - ImGui::CalcTextSize("LOAD SCENE").x) * 0.5f); // Center horizontally
+    const float buttonHeight = ImGui::GetFrameHeightWithSpacing();
+    const float progressBarHeight = 20.0f;
+    const float spacing = 5.0f; // Space between button and progress bar
+    const float totalBottomHeight = buttonHeight + spacing;
 
+    ImVec2 bottomAreaStart(0, windowSize.y - totalBottomHeight);
+    ImGui::SetCursorPos(bottomAreaStart);
+
+    ImGui::SetCursorPosX((windowSize.x - ImGui::CalcTextSize("LOAD SCENE").x) * 0.5f);
+    
     ImVec4 buttonColor = ImGui::GetStyle().Colors[ImGuiCol_Button];
     buttonColor.w = 0.9f;
     ImGui::PushStyleColor(ImGuiCol_Button, buttonColor);
 
     if (ImGui::Button("LOAD SCENE")) {
-        // Add loading functionalities here
-        std::cout << "Button Clicked" << std::endl;
+        std::cout << "Scene Loaded" << std::endl;
     }
-
     ImGui::PopStyleColor();
+
+    ImGui::SetCursorPosX((windowSize.x - windowSize.x * 0.8f) * 0.5f);
+    
+    // Progress bar styling
+    ImGui::PushStyleColor(ImGuiCol_FrameBg, ImVec4(0.2f, 0.2f, 0.2f, 0.9f));
+    ImGui::PushStyleColor(ImGuiCol_PlotHistogram, 
+        this->isLoadingComplete ? 
+        ImVec4(0.0f, 1.0f, 0.0f, 1.0f) : // Green when complete
+        ImVec4(0.26f, 0.59f, 0.98f, 0.9f)); // Blue while loading
+    
+    ImGui::ProgressBar(this->loadingProgress, ImVec2(windowSize.x * 0.8f, progressBarHeight), "");
+    ImGui::PopStyleColor(2);
+
+    // Centered percentage text
+    char progressText[32];
+    sprintf_s(progressText, "%.0f%%", this->loadingProgress * 100.0f);
+    ImVec2 textPos( (windowSize.x - ImGui::CalcTextSize(progressText).x) * 0.5f,
+                     ImGui::GetCursorPosY() - progressBarHeight);
+    ImGui::SetCursorPos(textPos);
+    ImGui::Text("%s", progressText);
 
     ImGui::End();
 }

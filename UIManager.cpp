@@ -1,5 +1,6 @@
 #include "UIManager.h"
 #include "PreviewScreen.h"
+#include "ViewAllButton.h"
 
 #include "imgui_impl_glfw.h"
 #include "imgui_impl_opengl3.h"
@@ -33,15 +34,14 @@ UIManager::UIManager()
 	//populate UI table
 	UINames uiNames;
 	PreviewScreen* previewScreen = new PreviewScreen();
-	//Debug::assignConsole(consoleScreen);
 	this->uiTable[uiNames.PREVIEW_SCREEN] = previewScreen;
 	this->uiList.push_back(previewScreen);
 
-	/*
-	ServerClientConnectScreen* connectScreen = new ServerClientConnectScreen();
-	this->uiTable[uiNames.CONNECT_SCREEN] = connectScreen;
-	this->uiList.push_back(connectScreen);
+	ViewAllButton* VAButton = new ViewAllButton();
+	this->uiTable[uiNames.VIEW_ALL_BUTTON] = VAButton;
+	this->uiList.push_back(VAButton);
 
+	/*
 	ChatScreen* chatScreen = new ChatScreen();
 	this->uiTable[uiNames.CHAT_SCREEN] = chatScreen;
 	this->uiList.push_back(chatScreen);*/

@@ -8,6 +8,7 @@
 class UINames {
 public:
 	const String PREVIEW_SCREEN = "PREVIEW_SCREEN";
+	const String VIEW_ALL_BUTTON = "VIEW_ALL_BUTTON";
 };
 
 

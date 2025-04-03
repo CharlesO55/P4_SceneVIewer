@@ -29,6 +29,7 @@
     <ClCompile Include="Proto\SceneViewer.pb.cc" />
     <ClCompile Include="Settings.cpp" />
     <ClCompile Include="UIManager.cpp" />
+    <ClCompile Include="ViewAllButton.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AUIScreen.h" />
@@ -40,6 +41,7 @@
     <ClInclude Include="Proto\SceneViewer.grpc.pb.h" />
     <ClInclude Include="Proto\SceneViewer.pb.h" />
     <ClInclude Include="UIManager.h" />
+    <ClInclude Include="ViewAllButton.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Proto\SceneViewer.proto" />

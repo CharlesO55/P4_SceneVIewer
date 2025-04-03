@@ -9,6 +9,8 @@ public:
 	PreviewScreen();
 	~PreviewScreen();
 
+	void updateLoadingProgress(float progress);
+
 private:
 	void drawUI() override;
 	void loadTexture(const std::string& filePath);
@@ -16,5 +18,7 @@ private:
 	GLuint textureID;
 	int width, height;
 
+	float loadingProgress; 
+	bool isLoadingComplete;
 };
 
