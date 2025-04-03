@@ -17,7 +17,6 @@ grpc::Status FileServer::SendSceneRequest(grpc::ServerContext* context, const Sc
 	std::cout << COLOR::Y << "[SERVER] Received request for: " << request->scenename() << COLOR::W << std::endl;
 	std::string filePath = SERVER_FOLDER + "/" + request->scenename();
 	
-	
 	std::ifstream file(filePath, std::ios::binary);
 	if (!file.is_open()) {
 		std::cout << COLOR::R << "[SERVER] Fail: " << filePath << COLOR::W << std::endl;
@@ -30,18 +29,26 @@ grpc::Status FileServer::SendSceneRequest(grpc::ServerContext* context, const Sc
 	while (file.read(buffer, buffer_size)) {
 		FileChunkReply chunk;
 		chunk.set_chunk1024(buffer, buffer_size);
-
 		if (!writer->Write(chunk)) {
 			file.close();
 			return grpc::Status(grpc::StatusCode::UNKNOWN, "Failed to send chunk");
 		}
 	}
+
+	// Handle the remainder chunk bytes
+	std::streamsize bytes_read = file.gcount();
+	if (bytes_read > 0) {
+		FileChunkReply chunk;
+		chunk.set_chunk1024(buffer, bytes_read);
+		if (!writer->Write(chunk)) {
+			file.close();
+			return grpc::Status(grpc::StatusCode::UNKNOWN, "Failed to send final chunk");
+		}
+	}
+
 	file.close();
-
-
-
 	std::cout << COLOR::G << "[SERVER] Sent: " << filePath << COLOR::W << std::endl;
-    return grpc::Status::OK;
+	return grpc::Status::OK;
 }
 
 grpc::Status FileServer::RequestSceneFilePaths(grpc::ServerContext* context, const EmptyMsg* request, SceneFilepathsReply* response)
