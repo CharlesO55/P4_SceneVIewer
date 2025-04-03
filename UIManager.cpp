@@ -1,6 +1,7 @@
 #include "UIManager.h"
 #include "PreviewScreen.h"
 #include "ViewAllButton.h"
+#include "FPSCounter.h"
 
 #include "imgui_impl_glfw.h"
 #include "imgui_impl_opengl3.h"
@@ -56,6 +57,10 @@ UIManager::UIManager()
 	ViewAllButton* VAButton = new ViewAllButton();
 	this->uiTable[uiNames.VIEW_ALL_BUTTON] = VAButton;
 	this->uiList.push_back(VAButton);
+	
+	FPSCounter* fpsCounter = new FPSCounter();
+	this->uiTable[uiNames.FPS_COUNTER] = fpsCounter;
+	this->uiList.push_back(fpsCounter);
 
 	/*
 	ChatScreen* chatScreen = new ChatScreen();

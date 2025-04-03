@@ -13,6 +13,7 @@ public:
 	const String PREVIEW_SCREEN_4 = "PREVIEW_SCREEN_4";
 	const String PREVIEW_SCREEN_5 = "PREVIEW_SCREEN_5";
 	const String VIEW_ALL_BUTTON = "VIEW_ALL_BUTTON";
+	const String FPS_COUNTER = "FPS_COUNTER";
 };
 
 

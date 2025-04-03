@@ -22,6 +22,7 @@
     <ClCompile Include="AUIScreen.cpp" />
     <ClCompile Include="FileClient.cpp" />
     <ClCompile Include="FileServer.cpp" />
+    <ClCompile Include="FPSCounter.cpp" />
     <ClCompile Include="IETThread.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="PreviewScreen.cpp" />
@@ -33,6 +34,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AUIScreen.h" />
+    <ClInclude Include="FPSCounter.h" />
     <ClInclude Include="PreviewScreen.h" />
     <ClInclude Include="Settings.h" />
     <ClInclude Include="FileClient.h" />
