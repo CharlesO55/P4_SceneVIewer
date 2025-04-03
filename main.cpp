@@ -60,11 +60,12 @@ int main()
         return -1;
     }
     
-    UIManager::initialize(); 
 
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();  
     ImGui::StyleColorsDark();
+
+    UIManager::initialize(); 
 
     ImGui_ImplGlfw_InitForOpenGL(window, true);
     ImGui_ImplOpenGL3_Init("#version 130");

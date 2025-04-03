@@ -4,8 +4,13 @@
 #include "stb_image.h"
 #include <glad/glad.h>
 
-PreviewScreen::PreviewScreen() : AUIScreen("PreviewScreen") 
+PreviewScreen::PreviewScreen(float posX, float posY, int sceneNum) : AUIScreen("PreviewScreen")
 {
+    this->posX = posX;
+    this->posY = posY;
+
+    this->sceneNum = sceneNum;
+
     this->textureID = 0;
     this->width = 0;
     this->height = 0;
@@ -13,6 +18,7 @@ PreviewScreen::PreviewScreen() : AUIScreen("PreviewScreen")
     this->loadingProgress = 0.0f;
     this->isLoadingComplete = false;
 
+    // Change the image once we have them, we'll just take screenshots of previews
     this->loadTexture("ClientFiles/Scene2/Test.jpg");
 }
 
@@ -29,7 +35,10 @@ void PreviewScreen::updateLoadingProgress(float progress)
 
 void PreviewScreen::drawUI()
 {
-    ImGui::SetNextWindowPos(ImVec2(10, 10), ImGuiCond_Always);
+    char windowTitle[32];
+    snprintf(windowTitle, sizeof(windowTitle), "Scene %d", this->sceneNum);
+
+    ImGui::SetNextWindowPos(ImVec2(this->posX, this->posY), ImGuiCond_Always);
     ImGui::SetNextWindowSize(ImVec2(350, 200), ImGuiCond_Always);
 
     ImGuiWindowFlags windowFlags = ImGuiWindowFlags_NoResize |
@@ -38,7 +47,8 @@ void PreviewScreen::drawUI()
                                    ImGuiWindowFlags_NoScrollWithMouse |
                                    ImGuiWindowFlags_NoCollapse;
 
-    ImGui::Begin("Scene 2", nullptr, windowFlags);
+    ImGui::Begin(windowTitle, nullptr, windowFlags);
+    ImGui::PushID(this);
 
 #pragma region Preview Image
 
@@ -63,6 +73,8 @@ void PreviewScreen::drawUI()
 #pragma region Unload Button
 
     if (this->isLoadingComplete) {
+        ImGui::PushID("CloseButton");
+
         ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0.8f, 0.1f, 0.1f, 0.9f));
         ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4(1.0f, 0.2f, 0.2f, 1.0f));
         ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImVec4(0.6f, 0.1f, 0.1f, 1.0f));
@@ -74,11 +86,16 @@ void PreviewScreen::drawUI()
         ImGui::PushFont(ImGui::GetIO().Fonts->Fonts[0]); // Default bold font 
         if (ImGui::Button("X", closeButtonSize)) {
             std::cout << "Close button clicked" << std::endl;
+
+            this->fakeLoad = 0.0f;
+            this->loadingProgress = 0.0f;
+            this->isLoadingComplete = false;
         }
         ImGui::PopFont();
 
         ImGui::PopStyleVar();
         ImGui::PopStyleColor(3);
+        ImGui::PopID();
     }
 
 #pragma endregion
@@ -100,10 +117,14 @@ void PreviewScreen::drawUI()
     buttonColor.w = 0.9f;
     ImGui::PushStyleColor(ImGuiCol_Button, buttonColor);
 
+    ImGui::PushID("LoadButton");
+
     if (ImGui::Button("LOAD SCENE")) {
         std::cout << "Scene Loaded" << std::endl;
     }
+
     ImGui::PopStyleColor();
+    ImGui::PopID();
 
 #pragma endregion
 
@@ -129,7 +150,10 @@ void PreviewScreen::drawUI()
     ImGui::SetCursorPos(textPos);
     ImGui::Text("%s", progressText);
 
+    ImGui::PopID();
     ImGui::End();
+
+#pragma endregion
 
     // FAKE LOADING - Comment out when not needed
     this->fakeLoad += 0.0001f;
@@ -138,9 +162,6 @@ void PreviewScreen::drawUI()
         this->fakeLoad = 1;
 
     this->updateLoadingProgress(this->fakeLoad);
-
-#pragma endregion
-
 }
 
 void PreviewScreen::loadTexture(const std::string& filePath) {

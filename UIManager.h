@@ -7,7 +7,11 @@
 
 class UINames {
 public:
-	const String PREVIEW_SCREEN = "PREVIEW_SCREEN";
+	const String PREVIEW_SCREEN_1 = "PREVIEW_SCREEN_1";
+	const String PREVIEW_SCREEN_2 = "PREVIEW_SCREEN_2";
+	const String PREVIEW_SCREEN_3 = "PREVIEW_SCREEN_3";
+	const String PREVIEW_SCREEN_4 = "PREVIEW_SCREEN_4";
+	const String PREVIEW_SCREEN_5 = "PREVIEW_SCREEN_5";
 	const String VIEW_ALL_BUTTON = "VIEW_ALL_BUTTON";
 };
 

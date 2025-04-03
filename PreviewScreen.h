@@ -6,7 +6,7 @@
 class PreviewScreen : public AUIScreen
 {
 public:
-	PreviewScreen();
+	PreviewScreen(float posX, float posY, int sceneNum);
 	~PreviewScreen();
 
 	void updateLoadingProgress(float progress);
@@ -14,6 +14,12 @@ public:
 private:
 	void drawUI() override;
 	void loadTexture(const std::string& filePath);
+
+private:
+	float posX;
+	float posY;
+
+	int sceneNum;
 
 	GLuint textureID;
 	int width, height;
