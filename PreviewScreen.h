@@ -18,6 +18,8 @@ private:
 	GLuint textureID;
 	int width, height;
 
+	float fakeLoad = 0.0f; // Load tester
+
 	float loadingProgress; 
 	bool isLoadingComplete;
 };

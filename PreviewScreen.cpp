@@ -40,6 +40,8 @@ void PreviewScreen::drawUI()
 
     ImGui::Begin("Scene 2", nullptr, windowFlags);
 
+#pragma region Preview Image
+
     ImVec2 windowSize = ImGui::GetContentRegionAvail();
     if (textureID != 0) {
         float aspect_ratio = static_cast<float>(height) / width;
@@ -55,6 +57,34 @@ void PreviewScreen::drawUI()
     
     else 
         ImGui::Text("Failed to load image.");
+
+#pragma endregion
+
+#pragma region Unload Button
+
+    if (this->isLoadingComplete) {
+        ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0.8f, 0.1f, 0.1f, 0.9f));
+        ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4(1.0f, 0.2f, 0.2f, 1.0f));
+        ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImVec4(0.6f, 0.1f, 0.1f, 1.0f));
+        ImGui::PushStyleVar(ImGuiStyleVar_FrameRounding, 12.0f); 
+
+        ImVec2 closeButtonSize(24, 24);
+        ImGui::SetCursorPos(ImVec2(ImGui::GetWindowSize().x - closeButtonSize.x - 8, 20));
+
+        ImGui::PushFont(ImGui::GetIO().Fonts->Fonts[0]); // Default bold font 
+        if (ImGui::Button("X", closeButtonSize)) {
+            std::cout << "Close button clicked" << std::endl;
+        }
+        ImGui::PopFont();
+
+        ImGui::PopStyleVar();
+        ImGui::PopStyleColor(3);
+    }
+
+#pragma endregion
+
+
+#pragma region Load Button
 
     const float buttonHeight = ImGui::GetFrameHeightWithSpacing();
     const float progressBarHeight = 20.0f;
@@ -74,6 +104,10 @@ void PreviewScreen::drawUI()
         std::cout << "Scene Loaded" << std::endl;
     }
     ImGui::PopStyleColor();
+
+#pragma endregion
+
+#pragma region Loading Bar
 
     ImGui::SetCursorPosX((windowSize.x - windowSize.x * 0.8f) * 0.5f);
     
@@ -96,6 +130,17 @@ void PreviewScreen::drawUI()
     ImGui::Text("%s", progressText);
 
     ImGui::End();
+
+    // FAKE LOADING - Comment out when not needed
+    this->fakeLoad += 0.0001f;
+
+    if (this->fakeLoad >= 1)
+        this->fakeLoad = 1;
+
+    this->updateLoadingProgress(this->fakeLoad);
+
+#pragma endregion
+
 }
 
 void PreviewScreen::loadTexture(const std::string& filePath) {
