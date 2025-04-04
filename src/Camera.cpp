@@ -6,7 +6,9 @@
 
 Camera* Camera::instance = nullptr;
 
-Camera::Camera(glm::vec3 position, glm::vec3 up, float yaw, float pitch) : Front(glm::vec3(0.0f, 0.0f, -1.0f)), MovementSpeed(2.5f), MouseSensitivity(0.1f), Zoom(45.f) {
+Camera::Camera(glm::vec3 position, glm::vec3 up, float yaw, float pitch) : Front(glm::vec3(0.0f, 0.0f, -1.0f)), MovementSpeed(15), MouseSensitivity(0.1f), Zoom(45.f) {
+    std::cout << "[CAMERA] Create" << std::endl;
+
     Position = position;
     WorldUp = up;
     Yaw = yaw;

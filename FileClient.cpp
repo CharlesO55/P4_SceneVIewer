@@ -4,6 +4,7 @@
 
 #include "Settings.h"
 
+#include "src/SceneManager.h"
 
 #include <thread>
 
@@ -36,6 +37,17 @@ void FileClient::RequestScene(const std::string filePath)
 
     output_file.close();
     PrintStatus(reader->Finish(), "[CLIENT] Downloaded." + filePath);
+
+    std::cout << std::endl << std::endl << filePath << std::endl << std::endl;
+
+    size_t scenename = filePath.find('/');
+
+
+
+    if (filePath.substr(filePath.length() - 4) == ".obj"){
+        SceneManager::instance->QueueDownloadedFile(filePath.substr(0, scenename), CLIENT_FOLDER + "/" + filePath);
+    }
+
 }
 
 void FileClient::PrepFolders()

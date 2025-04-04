@@ -28,12 +28,11 @@
 #include "src/Camera.h"
 #include "src/Model.h"
 
+#include "src/SceneManager.h"
 
 
 int main()
 {
-
-
     // Async run
     FileServer fServer;
     fServer.start();
@@ -41,8 +40,9 @@ int main()
     //Wait for server to startup
     std::this_thread::sleep_for(std::chrono::milliseconds(1000));
 
+    SceneManager sceneManager;
     FileClient::runClient();
-    
+
     std::this_thread::sleep_for(std::chrono::seconds(10));
 
     // Defines the type for the window output screen
@@ -50,8 +50,6 @@ int main()
 
     if (!glfwInit()) return -1;
     
-
-
 
     window = glfwCreateWindow(UIManager::WINDOW_WIDTH, UIManager::WINDOW_HEIGHT, "GDPARCM P4 - GALURA & ONG", NULL, NULL);
     if (!window)
@@ -87,6 +85,8 @@ int main()
     ImGui_ImplGlfw_InitForOpenGL(window, true);
     ImGui_ImplOpenGL3_Init("#version 130");
 
+
+
     // SHADER
     Shader shader("Shader/shaderModel.vert", "Shader/shaderModel.frag");
 
@@ -95,13 +95,8 @@ int main()
     camera.InitCallbacks(window);
     
     
-    // SCENE MODELS
-    // SAMPLE.. [TO DO] Make a manager
-    std::vector<Model> models;
-    models.push_back(Model("ClientFiles/Scene2/armadillo.obj", glm::vec3(5, 0, 5)));
-    models.push_back(Model("ClientFiles/Scene1/Cylinder.obj", glm::vec3(0, -5, -5)));
-
-
+    // SAMPLE USE SCENE1
+    sceneManager.SwitchActiveScene("Scene1");
 
 
     float deltaTime = 0.0f;
@@ -116,8 +111,10 @@ int main()
 
         glfwPollEvents();
 
+
         // RENDER SCENE
         camera.CheckMoveInput(window, deltaTime);
+        sceneManager.Update();
 
         glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -126,10 +123,7 @@ int main()
 
         camera.SetViewProjectMatrix(shader, (float)UIManager::WINDOW_WIDTH / (float)UIManager::WINDOW_HEIGHT);
 
-        for (Model& m : models) {
-            m.Draw(shader);
-        }
-
+        sceneManager.RenderActiveScene(shader);
 
         // UI
         ImGui_ImplOpenGL3_NewFrame();
@@ -152,5 +146,7 @@ int main()
 
     glfwDestroyWindow(window);
     glfwTerminate();
+    
+
     return 0;
 }

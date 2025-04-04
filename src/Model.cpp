@@ -1,5 +1,7 @@
 #include "Model.h"
 
+#include "SceneManager.h"
+
 unsigned int TextureFromFile(const char* path, const string& directory, bool gamma)
 {
     string filename = string(path);
@@ -42,10 +44,11 @@ unsigned int TextureFromFile(const char* path, const string& directory, bool gam
 
 
 Model::Model(string const& filepath, glm::vec3 pos, glm::vec3 scale, bool gamma) {
-    loadModel(filepath);
     this->position = pos;
     this->scale = scale;
     this->gammaCorrection = gamma;
+
+    loadModel(filepath);
 }
 
 void Model::Draw(Shader& shader)
@@ -65,6 +68,10 @@ void Model::loadModel(string const& path)
     // read file via ASSIMP
     Assimp::Importer importer;
     const aiScene* scene = importer.ReadFile(path, aiProcess_Triangulate | aiProcess_GenSmoothNormals | aiProcess_FlipUVs | aiProcess_CalcTangentSpace);
+    
+    //const aiScene* scene = importer.ReadFile(path, aiProcess_Triangulate | aiProcess_GenSmoothNormals | aiProcess_FlipUVs | aiProcess_CalcTangentSpace | aiProcess_SortByPType);
+
+    
     // check for errors
     if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode) // if is Not Zero
     {
@@ -76,6 +83,9 @@ void Model::loadModel(string const& path)
 
     // process ASSIMP's root node recursively
     processNode(scene->mRootNode, scene);
+
+
+    SceneManager::instance->NotifyFinishLoading();
 }
 
 void Model::processNode(aiNode* node, const aiScene* scene)
