@@ -5,7 +5,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <GLFW/glfw3.h>
 
-
+#include "Shader.h"
 
 class Camera
 {
@@ -18,6 +18,24 @@ public:
     };
 
 
+    float Zoom;
+    static Camera* instance;
+
+
+    Camera(glm::vec3 position = glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3 up = glm::vec3(0.0f, 1.0f, 0.0f), float yaw = -90.f, float pitch = 0.f);
+    void InitCallbacks(GLFWwindow* window);
+    
+
+    void SetViewProjectMatrix(Shader& shader, float aspectRatio);
+
+    void CheckMoveInput(GLFWwindow* window, float deltaTime);
+
+    void ProcessKeyboard(Camera_Movement direction, float deltaTime);
+    void ProcessMouseMovement(float xoffset, float yoffset, GLboolean constrainPitch = true);
+    void ProcessMouseScroll(float yoffset);
+
+
+private:
     glm::vec3 Position;
     glm::vec3 Front;
     glm::vec3 Up;
@@ -27,24 +45,8 @@ public:
     float Yaw;
     float Pitch;
 
-
     float MovementSpeed;
     float MouseSensitivity;
-    float Zoom;
-
-    static Camera* instance;
-    Camera(glm::vec3 position = glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3 up = glm::vec3(0.0f, 1.0f, 0.0f), float yaw = -90.f, float pitch = 0.f);
-
-    void InitCallbacks(GLFWwindow* window);
-    
-
-    void ProcessKeyboard(Camera_Movement direction, float deltaTime);
-    void ProcessMouseMovement(float xoffset, float yoffset, GLboolean constrainPitch = true);
-    void ProcessMouseScroll(float yoffset);
-
-    glm::mat4 GetViewMatrix();
-
-private:
 
     // Inputs
     float lastX;

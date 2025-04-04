@@ -31,10 +31,14 @@ public:
     string directory;
     bool gammaCorrection;
 
-    Model(string const& path, bool gamma = false);
+    Model(string const& filepath, glm::vec3 pos, glm::vec3 scale = glm::vec3(1,1,1), bool gamma = false);
     void Draw(Shader& shader);
 
 private:
+    glm::vec3 position;
+    glm::vec3 scale;
+    glm::vec3 rotation;
+
     void loadModel(string const& path);
 
     void processNode(aiNode* node, const aiScene* scene);

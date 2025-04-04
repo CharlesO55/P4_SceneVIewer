@@ -41,13 +41,21 @@ unsigned int TextureFromFile(const char* path, const string& directory, bool gam
 }
 
 
-Model::Model(string const& filepath, bool gamma) : gammaCorrection(gamma)
-{
+Model::Model(string const& filepath, glm::vec3 pos, glm::vec3 scale, bool gamma) {
     loadModel(filepath);
+    this->position = pos;
+    this->scale = scale;
+    this->gammaCorrection = gamma;
 }
 
 void Model::Draw(Shader& shader)
 {
+    glm::mat4 model = glm::mat4(1.0f);
+    model = glm::translate(model, position); // translate it down so it's at the center of the scene
+    model = glm::scale(model, scale);	// it's a bit too big for our scene, so scale it down
+    shader.setMat4("model", model);
+
+
     for (unsigned int i = 0; i < meshes.size(); i++)
         meshes[i].Draw(shader);
 }

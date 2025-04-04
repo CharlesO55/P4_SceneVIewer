@@ -24,6 +24,31 @@ void Camera::InitCallbacks(GLFWwindow* window) {
 }
 
 
+void Camera::SetViewProjectMatrix(Shader& shader, float aspectRatio) {
+    glm::mat4 projection = glm::perspective(glm::radians(this->Zoom), aspectRatio, 0.1f, 100.0f);
+    glm::mat4 view = glm::lookAt(Position, Position + Front, Up);//GetViewMatrix();
+    shader.setMat4("projection", projection);
+    shader.setMat4("view", view);
+
+}
+
+void Camera::CheckMoveInput(GLFWwindow* window, float deltaTime) {
+    // Too tired to make another listener so just terminate here
+    if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
+        glfwSetWindowShouldClose(window, true);
+        
+    if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
+        Camera::instance->ProcessKeyboard(Camera::FORWARD, deltaTime);
+    if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
+        Camera::instance->ProcessKeyboard(Camera::BACKWARD, deltaTime);
+    if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
+        Camera::instance->ProcessKeyboard(Camera::LEFT, deltaTime);
+    if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
+        Camera::instance->ProcessKeyboard(Camera::RIGHT, deltaTime);
+}
+
+
+
 void Camera::ProcessMouseScroll(float yoffset) {
     Zoom -= yoffset;
     if (Zoom < 1.0f)
@@ -51,11 +76,6 @@ void Camera::ProcessMouseMovement(float xoffset, float yoffset, GLboolean constr
     updateCameraVectors();
 }
 
-
-glm::mat4 Camera::GetViewMatrix()
-{
-    return glm::lookAt(Position, Position + Front, Up);
-}
 
 void Camera::ProcessKeyboard(Camera_Movement direction, float deltaTime)
 {
