@@ -8,6 +8,8 @@
 
 #include <thread>
 
+FileClient* FileClient::instance = nullptr;
+
 FileClient::FileClient()
 {
 }
@@ -80,8 +82,7 @@ void FileClient::PrepFolders()
         }
 
 
-
-        RequestScene(scene + "/" + file);
+        
     }
     
     PrintStatus(status, "[CLIENT] Read all files.");
@@ -89,8 +90,49 @@ void FileClient::PrepFolders()
     isStreaming = false;
 }
 
+
+void FileClient::LoadBySceneName()
+{
+    isStreaming = true;
+
+    SceneFilepathsReply reply;
+
+    grpc::ClientContext context;
+    std::chrono::time_point deadline = std::chrono::system_clock::now() +
+        std::chrono::milliseconds(2000);
+    context.set_deadline(deadline);
+
+    EmptyMsg e;
+    grpc::Status status = stub->RequestSceneFilePaths(&context, e, &reply);
+
+    for (int i = 0; i < reply.paths().size(); i++) {
+        std::string scene = reply.paths()[i];
+        std::string file = reply.filenames()[i];
+
+        sceneFilesTable[scene].push_back(file);
+
+        std::filesystem::path dir = std::filesystem::path(CLIENT_FOLDER) / scene;
+
+        if (!std::filesystem::exists(dir)) {
+            if (std::filesystem::create_directories(dir)) {
+                std::cout << "[CLIENT] Create: " << dir.string() << std::endl;
+            }
+        }
+
+
+        if (scene == sceneToLoad)
+            RequestScene(scene + "/" + file);
+    }
+
+    PrintStatus(status, "[CLIENT] Read all files.");
+
+    this->sceneToLoad.clear();
+    isStreaming = false;
+}
+
 void FileClient::Run()
 {
+    instance = this;
     this->stub = SceneStreamerService::NewStub(grpc::CreateChannel("localhost:" + std::to_string(PORT_NUMBER), grpc::InsecureChannelCredentials()));
 
     std::unique_lock<std::mutex> lck(mtx_LOAD);
@@ -98,7 +140,12 @@ void FileClient::Run()
         this->cv_LOAD.wait(lck);
 
         if(!isStreaming)
-            PrepFolders();
+            if (sceneToLoad.empty()) {
+                PrepFolders();
+            }
+            else {
+                LoadBySceneName();
+            }
         else
             std::cout << COLOR::Y << "ALREADY STREAMING. Submit another request later." << COLOR::W << COLOR::W;
     }
@@ -109,6 +156,14 @@ void FileClient::BeginStream()
 {
     this->cv_LOAD.notify_one();
 }
+
+void FileClient::BeginStream(std::string sceneName)
+{
+    this->sceneToLoad = sceneName;
+    this->cv_LOAD.notify_one();
+}
+
+
 
 void FileClient::UnloadFolders(std::filesystem::path dir)
 {

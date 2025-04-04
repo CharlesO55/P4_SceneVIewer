@@ -8,8 +8,9 @@ class FileClient
 {
 public:
 	FileClient();
+	static FileClient* instance;
+
 	void PrepFolders();
-	//static void runClient();
 
 	void Run();
 
@@ -18,12 +19,13 @@ public:
 	std::mutex mtx_STREAMING;
 
 	void BeginStream();
-
+	void BeginStream(std::string sceneName);
 
 private:
 	bool isStreaming = false;
+	std::string sceneToLoad;
 
-
+	void LoadBySceneName();
 	static void UnloadFolders(std::filesystem::path dir);
 
 

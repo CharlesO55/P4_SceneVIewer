@@ -43,10 +43,8 @@ int main()
     SceneManager sceneManager;
     
     FileClient client;
-    
     std::thread(&FileClient::Run, &client).detach();
 
-    //FileClient::runClient();
 
     std::this_thread::sleep_for(std::chrono::seconds(10));
 
@@ -128,7 +126,7 @@ int main()
         if (glfwGetKey(window, GLFW_KEY_4) == GLFW_PRESS)
             sceneManager.UnloadAll();
         if (glfwGetKey(window, GLFW_KEY_5) == GLFW_PRESS)
-            client.BeginStream();
+            client.BeginStream("Scene1");
 
 
         // RENDER SCENE
