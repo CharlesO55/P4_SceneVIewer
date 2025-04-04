@@ -52,6 +52,11 @@ bool PreviewScreen::getLoadingComplete() const
     return this->isLoadingComplete;
 }
 
+int PreviewScreen::getSceneNum()
+{
+    return this->sceneNum;
+}
+
 void PreviewScreen::drawUI()
 {
     char windowTitle[32];
@@ -144,8 +149,7 @@ void PreviewScreen::drawUI()
     ImGui::PushStyleColor(ImGuiCol_Button, loadButtonColor);
 
     if (ImGui::Button("LOAD SCENE", ImVec2(loadButtonWidth, 0))) {
-        std::cout << "Scene " << sceneNum << " Loaded" << std::endl;
-        SceneManager::instance->ToggleRenderAll(true);
+        std::cout << "Scene" << sceneNum << " Loaded" << std::endl;
     }
     ImGui::PopStyleColor();
     ImGui::PopID();
@@ -161,6 +165,8 @@ void PreviewScreen::drawUI()
 
     if (ImGui::Button("VIEW SCENE", ImVec2(viewButtonWidth, 0))) {
         std::cout << "Viewing Scene " << sceneNum << std::endl;
+        SceneManager::instance->ToggleRenderAll(false);
+        SceneManager::instance->SwitchActiveScene("Scene" + std::to_string(sceneNum));
         CurrentLoadingBar::getInstance()->startLoadingFrom(this);
     }
 

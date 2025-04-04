@@ -1,6 +1,7 @@
 #include "ViewAllButton.h"
 #include "imgui.h"
 #include "UIManager.h" 
+#include "src/SceneManager.h"
 
 #include <iostream>
 
@@ -33,7 +34,8 @@ void ViewAllButton::drawUI()
 
     if (ImGui::Button("VIEW ALL", ImVec2(ImGui::GetContentRegionAvail().x, ImGui::GetContentRegionAvail().y)))
     {
-        std::cout << "View All Pressed!" << std::endl;
+        std::cout << "View All Pressed" << std::endl;
+        SceneManager::instance->ToggleRenderAll(true);
     }
 
     ImGui::PopStyleColor(3);

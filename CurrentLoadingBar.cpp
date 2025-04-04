@@ -3,6 +3,7 @@
 #include "imgui.h"
 
 CurrentLoadingBar* CurrentLoadingBar::instance = nullptr;
+PreviewScreen* CurrentLoadingBar::targetScreen = nullptr;
 
 CurrentLoadingBar* CurrentLoadingBar::getInstance()
 {
@@ -17,13 +18,13 @@ CurrentLoadingBar::CurrentLoadingBar() : AUIScreen("CurrentLoadingBar") {}
 
 void CurrentLoadingBar::startLoadingFrom(PreviewScreen* source)
 {
-    this->sourceScreen = source;
+    this->targetScreen = source;
     this->isActive = true;
 }
 
 void CurrentLoadingBar::drawUI()
 {
-    if (!isActive || !this->sourceScreen || this->sourceScreen->getLoadingComplete()) {
+    if (!isActive || !this->targetScreen || this->targetScreen->getLoadingComplete()) {
         isActive = false;
         return;
     }
@@ -48,8 +49,8 @@ void CurrentLoadingBar::drawUI()
 
     ImGui::Begin("CurrentLoadingBar", nullptr, flags);
     {
-        float progress = sourceScreen->getLoadingProgress();
-        bool complete = sourceScreen->getLoadingComplete();
+        float progress = targetScreen->getLoadingProgress();
+        bool complete = targetScreen->getLoadingComplete();
         
         // Loading bar styling
         ImGui::PushStyleColor(ImGuiCol_FrameBg, ImVec4(0.2f, 0.2f, 0.2f, 0.9f));

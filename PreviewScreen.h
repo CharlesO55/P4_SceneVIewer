@@ -15,6 +15,8 @@ public:
 	float getLoadingProgress() const;
 	bool getLoadingComplete() const; 
 
+	int getSceneNum();
+
 private:
 	void drawUI() override;
 	void loadTexture(const std::string& filePath);

@@ -14,7 +14,7 @@ private:
     void drawUI() override;
 
     static CurrentLoadingBar* instance;
-    PreviewScreen* sourceScreen = nullptr;
+    static PreviewScreen* targetScreen;
 
     bool isActive = false;
 };
