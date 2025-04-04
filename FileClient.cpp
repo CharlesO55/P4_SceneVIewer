@@ -5,6 +5,8 @@
 #include "Settings.h"
 
 
+#include <thread>
+
 FileClient::FileClient(std::shared_ptr<grpc::ChannelInterface> channel)
 {
 	this->stub = SceneStreamerService::NewStub(channel);
@@ -64,8 +66,8 @@ void FileClient::PrepFolders()
 
 
 
-
-
+        //std::thread(&FileClient::RequestScene, this, scene + "/" + file).detach();
+        
         // [TO DO] : This will be one of the time consuming parts in downloading. Detach
         RequestScene(scene + "/" + file);
     }

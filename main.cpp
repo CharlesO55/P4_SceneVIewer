@@ -1,6 +1,3 @@
-//#include "GreeterServer.h"
-//#include "GreeterClient.h"
-
 #include "FileServer.h"
 #include "FileClient.h"
 #include "UIManager.h"
@@ -19,6 +16,9 @@
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
 
+
+
+
 int main()
 {
     // Async run
@@ -30,15 +30,6 @@ int main()
 
     FileClient::runClient();
     
-    /*for (int i = 0; i < users.size(); i++) {
-        std::thread([username = users[i].name, repeat = users[i].repetitions, message=users[i].message]() {
-
-            GreeterClient::runClientLooped(username, repeat, message);
-                }).detach();
-
-        std::this_thread::sleep_for(std::chrono::seconds(1));
-    }*/
-
     std::this_thread::sleep_for(std::chrono::seconds(10));
 
     // Defines the type for the window output screen

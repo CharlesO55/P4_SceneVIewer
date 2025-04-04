@@ -36,12 +36,20 @@ cd vcpkg
 
 #### [For HO7]
 
+#### [For MP]
+
 ./vcpkg install glfw3:x64-windows
 
 ./vcpkg install imgui[core,glfw-binding,opengl3-binding]:x64-windows
 
+#### [NEW]
+./vcpkg install tinyobjloader
 
+./vcpkg install glad
 
+./vcpkg install glm
+
+./vcpkg install assimp
 
 4. Restart VS & Add to dependencies:
 #### [For HO7]
