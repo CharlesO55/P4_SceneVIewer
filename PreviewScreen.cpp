@@ -110,6 +110,7 @@ void PreviewScreen::drawUI()
         ImGui::PushFont(ImGui::GetIO().Fonts->Fonts[0]); // Default bold font 
         if (ImGui::Button("X", closeButtonSize)) {
             std::cout << "Close button clicked" << std::endl;
+            SceneManager::instance->UnloadSceneByName("Scene" + std::to_string(sceneNum));
 
             this->fakeLoad = 0.0f;
             this->loadingProgress = 0.0f;
