@@ -48,9 +48,12 @@ void SceneManager::LoadObj(const std::string& scenename, const std::string& file
 
 void SceneManager::Update(float delta)
 {
+	// TAKE SOME TIME FROM THE MAIN THREAD TO OPENGL LOAD THE DOWNLOADED OBJECTS
 	time += delta;
-	if (time < 5)
+	if (time < 1) {
 		return;
+	}
+	time = 0;
 
 	std::lock_guard<std::mutex> lck(mtw_QUEUE);
 	if (!downloadedQueue.empty()) {
@@ -93,6 +96,15 @@ void SceneManager::UnloadActiveScene()
 		delete ptr;
 	}
 	sceneTable[activeScene].clear();
+}
+
+void SceneManager::UnloadSceneByName(const std::string& sceneName)
+{
+	std::unique_lock<std::mutex> lock(TABLE_LOCK);
+	for (Model* ptr : sceneTable[sceneName]) {
+		delete ptr;
+	}
+	sceneTable[sceneName].clear();
 }
 
 void SceneManager::UnloadAll()

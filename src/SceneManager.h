@@ -43,6 +43,7 @@ public:
 	void SwitchActiveScene(const std::string& sceneName);
 	void RenderActiveScene(Shader& shader);
 	
+	void UnloadSceneByName(const std::string& sceneName);
 	void UnloadActiveScene();
 	void UnloadAll();
 
