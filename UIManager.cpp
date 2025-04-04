@@ -40,23 +40,27 @@ UIManager::UIManager()
 	this->uiList.push_back(curLoad);
 
 	PreviewScreen* previewScreen1 = new PreviewScreen(10, 10, 1);
-	previewScreen1->changeImage("ClientFiles/Scene2/AssembledSample.png");
+	previewScreen1->changeImage("ScenePreviews/Scene1.png");
 	this->uiTable[uiNames.PREVIEW_SCREEN_1] = previewScreen1;
 	this->uiList.push_back(previewScreen1);
 	
 	PreviewScreen* previewScreen2 = new PreviewScreen(370, 10, 2);
+	previewScreen2->changeImage("ScenePreviews/Scene2.png");
 	this->uiTable[uiNames.PREVIEW_SCREEN_2] = previewScreen2;
 	this->uiList.push_back(previewScreen2);
 
 	PreviewScreen* previewScreen3 = new PreviewScreen(730, 10, 3);
+	previewScreen3->changeImage("ScenePreviews/Scene3.png");
 	this->uiTable[uiNames.PREVIEW_SCREEN_3] = previewScreen3;
 	this->uiList.push_back(previewScreen3);
 	
 	PreviewScreen* previewScreen4 = new PreviewScreen(1090, 10, 4);
+	previewScreen4->changeImage("ScenePreviews/Scene4.png");
 	this->uiTable[uiNames.PREVIEW_SCREEN_4] = previewScreen4;
 	this->uiList.push_back(previewScreen4);
 	
 	PreviewScreen* previewScreen5 = new PreviewScreen(1450, 10, 5);
+	previewScreen5->changeImage("ScenePreviews/Scene5.png");
 	this->uiTable[uiNames.PREVIEW_SCREEN_5] = previewScreen5;
 	this->uiList.push_back(previewScreen5);
 
