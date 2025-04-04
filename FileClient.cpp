@@ -7,19 +7,14 @@
 #include "src/SceneManager.h"
 
 #include <thread>
-#include <semaphore>
 
-std::counting_semaphore<> DOWNLOAD_PERMITS(1);
-
-FileClient::FileClient(std::shared_ptr<grpc::ChannelInterface> channel)
+FileClient::FileClient()
 {
-	this->stub = SceneStreamerService::NewStub(channel);
 }
+
 
 void FileClient::RequestScene(const std::string filePath)
 {
-    DOWNLOAD_PERMITS.acquire();
-
     SceneRequest request;
     request.set_scenename(filePath);
 
@@ -30,7 +25,6 @@ void FileClient::RequestScene(const std::string filePath)
 
     
     std::unique_ptr<grpc::ClientReader<FileChunkReply>> reader(stub->SendSceneRequest(&context, request));
-    //grpc::ClientReader<FileChunkReply> reader(stub->SendSceneRequest(&context, request));
 
 
     // Open output file
@@ -50,13 +44,15 @@ void FileClient::RequestScene(const std::string filePath)
     if (filePath.substr(filePath.length() - 4) == ".obj"){
         SceneManager::QueueDownloadedFile(filePath.substr(0, scenename), CLIENT_FOLDER + "/" + filePath);
     }
-
-    DOWNLOAD_PERMITS.release();
 }
+
+
 
 
 void FileClient::PrepFolders()
 {
+    isStreaming = true;
+
     SceneFilepathsReply reply;
     
     grpc::ClientContext context;
@@ -84,23 +80,51 @@ void FileClient::PrepFolders()
 
 
         RequestScene(scene + "/" + file);
-        //std::string fullPath = scene + "/" + file;
-        //std::thread (&FileClient::RequestScene, this, fullPath).detach();
     }
-
     
     PrintStatus(status, "[CLIENT] Read all files.");
+
+    isStreaming = false;
 }
 
-void FileClient::runClient()
+void FileClient::Run()
 {
-    FileClient client(grpc::CreateChannel("localhost:" + std::to_string(PORT_NUMBER), grpc::InsecureChannelCredentials()));
-    
-    client.PrepFolders();
+    this->stub = SceneStreamerService::NewStub(grpc::CreateChannel("localhost:" + std::to_string(PORT_NUMBER), grpc::InsecureChannelCredentials()));
 
-    //std::thread(&FileClient::PrepFolders, client).join();
-    //client.PrepFolders();
-    //client.RequestScene("ServerFiles/test.jpg");
+    std::unique_lock<std::mutex> lck(mtx_LOAD);
+    while (true) {
+        this->cv_LOAD.wait(lck);
+
+        if(!isStreaming)
+            PrepFolders();
+        else
+            std::cout << COLOR::Y << "ALREADY STREAMING. Submit another request later." << COLOR::W << COLOR::W;
+    }
+}
+
+
+void FileClient::BeginStream()
+{
+    this->cv_LOAD.notify_one();
+}
+
+void FileClient::UnloadFolders(std::filesystem::path dir)
+{
+    try {
+        // Iterate over the directory
+        for (const auto& entry : std::filesystem::directory_iterator(dir)) {
+            // Check if it's a directory
+            if (std::filesystem::is_directory(entry.status())) {
+                // Recursively delete contents and the directory
+                UnloadFolders(entry.path());
+                std::filesystem::remove_all(entry.path());  // Delete the folder and its contents
+                std::cout << "Deleted folder: " << entry.path() << std::endl;
+            }
+        }
+    }
+    catch (const std::exception& e) {
+        std::cerr << "Error while deleting folders: " << e.what() << std::endl;
+    }
 }
 
 void FileClient::PrintStatus(const grpc::Status& status, const std::string& success_msg)

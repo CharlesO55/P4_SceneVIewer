@@ -41,7 +41,12 @@ int main()
     std::this_thread::sleep_for(std::chrono::milliseconds(1000));
 
     SceneManager sceneManager;
-    FileClient::runClient();
+    
+    FileClient client;
+    
+    std::thread(&FileClient::Run, &client).detach();
+
+    //FileClient::runClient();
 
     std::this_thread::sleep_for(std::chrono::seconds(10));
 
@@ -102,6 +107,7 @@ int main()
     float deltaTime = 0.0f;
     float lastFrame = 0.0f;
 
+
     // Event loop
     while (!glfwWindowShouldClose(window))
     {
@@ -121,6 +127,9 @@ int main()
             sceneManager.UnloadActiveScene();
         if (glfwGetKey(window, GLFW_KEY_4) == GLFW_PRESS)
             sceneManager.UnloadAll();
+        if (glfwGetKey(window, GLFW_KEY_5) == GLFW_PRESS)
+            client.BeginStream();
+
 
 
         // RENDER SCENE
