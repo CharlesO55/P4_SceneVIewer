@@ -3,9 +3,11 @@
 
 SceneManager* SceneManager::instance = nullptr;
 
-
-
 #include "../Settings.h"
+
+std::counting_semaphore<> LOADING_PERMITS(1);
+
+std::mutex mtw_QUEUE;
 
 SceneManager::SceneManager()
 {
@@ -21,8 +23,18 @@ SceneManager::~SceneManager()
 
 void SceneManager::QueueDownloadedFile(const std::string& scenename, const std::string& filepath)
 {
+	LOADING_PERMITS.acquire();
+
+	std::lock_guard<std::mutex> lck(mtw_QUEUE);
 	instance->downloadedQueue.push(std::make_pair(scenename, filepath));
 }
+
+void SceneManager::NotifyModelLoaded()
+{
+	LOADING_PERMITS.release();
+}
+
+
 
 void SceneManager::LoadObj(const std::string& scenename, const std::string& filepath)
 {
@@ -34,8 +46,13 @@ void SceneManager::LoadObj(const std::string& scenename, const std::string& file
 
 
 
-void SceneManager::Update()
+void SceneManager::Update(float delta)
 {
+	time += delta;
+	if (time < 5)
+		return;
+
+	std::lock_guard<std::mutex> lck(mtw_QUEUE);
 	if (!downloadedQueue.empty()) {
 		std::pair<std::string, std::string> toLoad = downloadedQueue.front();
 		downloadedQueue.pop();

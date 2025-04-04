@@ -2,9 +2,6 @@
 
 #include "SceneManager.h"
 
-#include <semaphore>
-
-std::counting_semaphore<> CREATION_PERMITS(2);
 
 unsigned int TextureFromFile(const char* path, const string& directory, bool gamma)
 {
@@ -52,9 +49,9 @@ Model::Model(string const& filepath, glm::vec3 pos, glm::vec3 scale, bool gamma)
     this->scale = scale;
     this->gammaCorrection = gamma;
 
-    //std::this_thread::sleep_for(std::chrono::milliseconds(5000));
-
     loadModel(filepath);
+
+    SceneManager::instance->NotifyModelLoaded();
 }
 
 void Model::Draw(Shader& shader)

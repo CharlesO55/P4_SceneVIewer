@@ -15,12 +15,14 @@ FileClient::FileClient()
 
 void FileClient::RequestScene(const std::string filePath)
 {
+    std::this_thread::sleep_for(std::chrono::milliseconds(500));
+
     SceneRequest request;
     request.set_scenename(filePath);
 
     grpc::ClientContext context;
     std::chrono::time_point deadline = std::chrono::system_clock::now() +
-        std::chrono::milliseconds(2000);
+        std::chrono::seconds(5);
     context.set_deadline(deadline);
 
     
@@ -42,7 +44,7 @@ void FileClient::RequestScene(const std::string filePath)
     size_t scenename = filePath.find('/');
 
     if (filePath.substr(filePath.length() - 4) == ".obj"){
-        SceneManager::QueueDownloadedFile(filePath.substr(0, scenename), CLIENT_FOLDER + "/" + filePath);
+        SceneManager::instance->QueueDownloadedFile(filePath.substr(0, scenename), CLIENT_FOLDER + "/" + filePath);
     }
 }
 

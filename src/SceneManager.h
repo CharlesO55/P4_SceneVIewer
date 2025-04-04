@@ -23,8 +23,9 @@ class SceneManager
 	
 	bool isRenderAll = false;
 
-	std::condition_variable cv;
 	std::mutex TABLE_LOCK;
+
+	float time;
 
 public:
 	static SceneManager* instance;
@@ -33,11 +34,11 @@ public:
 	~SceneManager();
 	
 
-	static void QueueDownloadedFile(const std::string& scenename, const std::string& filepath);
+	void QueueDownloadedFile(const std::string& scenename, const std::string& filepath);
+	void NotifyModelLoaded();
 
 
-
-	void Update();
+	void Update(float delta);
 
 	void SwitchActiveScene(const std::string& sceneName);
 	void RenderActiveScene(Shader& shader);

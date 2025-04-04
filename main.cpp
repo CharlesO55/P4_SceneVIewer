@@ -131,10 +131,9 @@ int main()
             client.BeginStream();
 
 
-
         // RENDER SCENE
         camera.CheckMoveInput(window, deltaTime);
-        sceneManager.Update();
+        sceneManager.Update(deltaTime);
 
         glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
