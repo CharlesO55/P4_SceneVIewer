@@ -11,6 +11,9 @@ public:
 
 	void updateLoadingProgress(float progress);
 
+	float getLoadingProgress() const;
+	bool getLoadingComplete() const; 
+
 private:
 	void drawUI() override;
 	void loadTexture(const std::string& filePath);

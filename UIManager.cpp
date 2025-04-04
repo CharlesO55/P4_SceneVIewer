@@ -2,6 +2,7 @@
 #include "PreviewScreen.h"
 #include "ViewAllButton.h"
 #include "FPSCounter.h"
+#include "CurrentLoadingBar.h"
 
 #include "imgui_impl_glfw.h"
 #include "imgui_impl_opengl3.h"
@@ -34,6 +35,10 @@ UIManager::UIManager()
 {
 	//populate UI table
 	UINames uiNames;
+	CurrentLoadingBar* curLoad = new CurrentLoadingBar();
+	this->uiTable[uiNames.CURRENT_LOADING] = curLoad;
+	this->uiList.push_back(curLoad);
+
 	PreviewScreen* previewScreen1 = new PreviewScreen(10, 10, 1);
 	this->uiTable[uiNames.PREVIEW_SCREEN_1] = previewScreen1;
 	this->uiList.push_back(previewScreen1);
