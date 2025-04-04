@@ -105,25 +105,46 @@ void PreviewScreen::drawUI()
 
     const float buttonHeight = ImGui::GetFrameHeightWithSpacing();
     const float progressBarHeight = 20.0f;
-    const float spacing = 5.0f; // Space between button and progress bar
+    const float spacing = 5.0f;
     const float totalBottomHeight = buttonHeight + spacing;
 
     ImVec2 bottomAreaStart(0, windowSize.y - totalBottomHeight);
     ImGui::SetCursorPos(bottomAreaStart);
 
-    ImGui::SetCursorPosX((windowSize.x - ImGui::CalcTextSize("LOAD SCENE").x) * 0.5f);
-    
-    ImVec4 buttonColor = ImGui::GetStyle().Colors[ImGuiCol_Button];
-    buttonColor.w = 0.9f;
-    ImGui::PushStyleColor(ImGuiCol_Button, buttonColor);
+    float availableWidth = windowSize.x;
+    float loadButtonWidth = ImGui::CalcTextSize("LOAD SCENE").x + 20.0f;
+    float viewButtonWidth = ImGui::CalcTextSize("VIEW SCENE").x + 20.0f;
+    float totalButtonsWidth = loadButtonWidth + viewButtonWidth + 10.0f;
+
+    // Center both buttons together
+    ImGui::SetCursorPosX((availableWidth - totalButtonsWidth) * 0.5f);
 
     ImGui::PushID("LoadButton");
+    ImVec4 loadButtonColor = ImGui::GetStyle().Colors[ImGuiCol_Button];
+    loadButtonColor.w = 0.9f;
+    ImGui::PushStyleColor(ImGuiCol_Button, loadButtonColor);
 
-    if (ImGui::Button("LOAD SCENE")) {
-        std::cout << "Scene Loaded" << std::endl;
+    if (ImGui::Button("LOAD SCENE", ImVec2(loadButtonWidth, 0))) {
+        std::cout << "Scene " << sceneNum << " Loaded" << std::endl;
+    }
+    ImGui::PopStyleColor();
+    ImGui::PopID();
+
+    ImGui::SameLine(0.0f, 10.0f);
+
+    ImGui::PushID("ViewButton");
+    ImVec4 viewButtonColor = ImGui::GetStyle().Colors[ImGuiCol_Button];
+    viewButtonColor = ImVec4(0.2f, 0.7f, 0.2f, 0.9f); // Green color
+    ImGui::PushStyleColor(ImGuiCol_Button, viewButtonColor);
+    ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4(0.3f, 0.8f, 0.3f, 1.0f));
+    ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImVec4(0.1f, 0.6f, 0.1f, 1.0f));
+
+    if (ImGui::Button("VIEW SCENE", ImVec2(viewButtonWidth, 0))) {
+        std::cout << "Viewing Scene " << sceneNum << std::endl;
+        
     }
 
-    ImGui::PopStyleColor();
+    ImGui::PopStyleColor(3);
     ImGui::PopID();
 
 #pragma endregion
