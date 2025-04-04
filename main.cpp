@@ -112,6 +112,17 @@ int main()
         glfwPollEvents();
 
 
+        // SAMPLE FUNCTIONS
+        if (glfwGetKey(window, GLFW_KEY_1) == GLFW_PRESS)
+            sceneManager.ToggleRenderAll(true);
+        if (glfwGetKey(window, GLFW_KEY_2) == GLFW_PRESS)
+            sceneManager.ToggleRenderAll(false);
+        if (glfwGetKey(window, GLFW_KEY_3) == GLFW_PRESS)
+            sceneManager.UnloadActiveScene();
+        if (glfwGetKey(window, GLFW_KEY_4) == GLFW_PRESS)
+            sceneManager.UnloadAll();
+
+
         // RENDER SCENE
         camera.CheckMoveInput(window, deltaTime);
         sceneManager.Update();

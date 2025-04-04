@@ -7,6 +7,9 @@
 #include "src/SceneManager.h"
 
 #include <thread>
+#include <semaphore>
+
+std::counting_semaphore<> DOWNLOAD_PERMITS(1);
 
 FileClient::FileClient(std::shared_ptr<grpc::ChannelInterface> channel)
 {
@@ -15,6 +18,8 @@ FileClient::FileClient(std::shared_ptr<grpc::ChannelInterface> channel)
 
 void FileClient::RequestScene(const std::string filePath)
 {
+    DOWNLOAD_PERMITS.acquire();
+
     SceneRequest request;
     request.set_scenename(filePath);
 
@@ -25,6 +30,7 @@ void FileClient::RequestScene(const std::string filePath)
 
     
     std::unique_ptr<grpc::ClientReader<FileChunkReply>> reader(stub->SendSceneRequest(&context, request));
+    //grpc::ClientReader<FileChunkReply> reader(stub->SendSceneRequest(&context, request));
 
 
     // Open output file
@@ -38,17 +44,16 @@ void FileClient::RequestScene(const std::string filePath)
     output_file.close();
     PrintStatus(reader->Finish(), "[CLIENT] Downloaded." + filePath);
 
-    std::cout << std::endl << std::endl << filePath << std::endl << std::endl;
 
     size_t scenename = filePath.find('/');
 
-
-
     if (filePath.substr(filePath.length() - 4) == ".obj"){
-        SceneManager::instance->QueueDownloadedFile(filePath.substr(0, scenename), CLIENT_FOLDER + "/" + filePath);
+        SceneManager::QueueDownloadedFile(filePath.substr(0, scenename), CLIENT_FOLDER + "/" + filePath);
     }
 
+    DOWNLOAD_PERMITS.release();
 }
+
 
 void FileClient::PrepFolders()
 {
@@ -78,10 +83,9 @@ void FileClient::PrepFolders()
 
 
 
-        //std::thread(&FileClient::RequestScene, this, scene + "/" + file).detach();
-        
-        // [TO DO] : This will be one of the time consuming parts in downloading. Detach
         RequestScene(scene + "/" + file);
+        //std::string fullPath = scene + "/" + file;
+        //std::thread (&FileClient::RequestScene, this, fullPath).detach();
     }
 
     
@@ -93,6 +97,9 @@ void FileClient::runClient()
     FileClient client(grpc::CreateChannel("localhost:" + std::to_string(PORT_NUMBER), grpc::InsecureChannelCredentials()));
     
     client.PrepFolders();
+
+    //std::thread(&FileClient::PrepFolders, client).join();
+    //client.PrepFolders();
     //client.RequestScene("ServerFiles/test.jpg");
 }
 

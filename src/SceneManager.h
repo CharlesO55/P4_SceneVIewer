@@ -7,6 +7,8 @@
 #include "Model.h"
 #include <mutex> 
 #include <queue>
+#include <condition_variable>
+
 
 // SINGLE THREAD AND OPENGL CONTEXT
 class SceneManager
@@ -21,7 +23,8 @@ class SceneManager
 	
 	bool isRenderAll = false;
 
-
+	std::condition_variable cv;
+	std::mutex TABLE_LOCK;
 
 public:
 	static SceneManager* instance;
@@ -30,8 +33,7 @@ public:
 	~SceneManager();
 	
 
-	void QueueDownloadedFile(const std::string& scenename, const std::string& filepath);
-	void NotifyFinishLoading();
+	static void QueueDownloadedFile(const std::string& scenename, const std::string& filepath);
 
 
 
@@ -40,5 +42,8 @@ public:
 	void SwitchActiveScene(const std::string& sceneName);
 	void RenderActiveScene(Shader& shader);
 	
+	void UnloadActiveScene();
+	void UnloadAll();
+
 	void ToggleRenderAll(bool renderAll);
 };

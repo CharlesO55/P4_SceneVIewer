@@ -15,9 +15,7 @@ private:
 	
 	void RequestScene(const std::string filename); // Relative path. Exclude folder parent
 
-
-
-
+	
 	void PrintStatus(const grpc::Status& status, const std::string& success_msg);
 
 	std::unique_ptr<SceneStreamerService::Stub> stub;

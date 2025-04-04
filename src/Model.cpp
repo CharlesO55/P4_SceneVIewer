@@ -2,6 +2,10 @@
 
 #include "SceneManager.h"
 
+#include <semaphore>
+
+std::counting_semaphore<> CREATION_PERMITS(2);
+
 unsigned int TextureFromFile(const char* path, const string& directory, bool gamma)
 {
     string filename = string(path);
@@ -48,6 +52,8 @@ Model::Model(string const& filepath, glm::vec3 pos, glm::vec3 scale, bool gamma)
     this->scale = scale;
     this->gammaCorrection = gamma;
 
+    //std::this_thread::sleep_for(std::chrono::milliseconds(5000));
+
     loadModel(filepath);
 }
 
@@ -71,7 +77,6 @@ void Model::loadModel(string const& path)
     
     //const aiScene* scene = importer.ReadFile(path, aiProcess_Triangulate | aiProcess_GenSmoothNormals | aiProcess_FlipUVs | aiProcess_CalcTangentSpace | aiProcess_SortByPType);
 
-    
     // check for errors
     if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode) // if is Not Zero
     {
@@ -83,9 +88,6 @@ void Model::loadModel(string const& path)
 
     // process ASSIMP's root node recursively
     processNode(scene->mRootNode, scene);
-
-
-    SceneManager::instance->NotifyFinishLoading();
 }
 
 void Model::processNode(aiNode* node, const aiScene* scene)
