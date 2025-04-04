@@ -94,8 +94,9 @@ int main()
     
     
     // SCENE MODELS
+    // SAMPLE.. [TO DO] Make a manager
     std::vector<Model> models;
-    models.push_back(Model("resources/cow.obj", glm::vec3(5, 0, 5)));
+    models.push_back(Model("ClientFiles/Scene2/armadillo.obj", glm::vec3(5, 0, 5)));
     models.push_back(Model("ClientFiles/Scene1/Cylinder.obj", glm::vec3(0, -5, -5)));
 
 
