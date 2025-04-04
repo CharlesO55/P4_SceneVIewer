@@ -40,6 +40,7 @@ UIManager::UIManager()
 	this->uiList.push_back(curLoad);
 
 	PreviewScreen* previewScreen1 = new PreviewScreen(10, 10, 1);
+	previewScreen1->changeImage("ClientFiles/Scene2/AssembledSample.png");
 	this->uiTable[uiNames.PREVIEW_SCREEN_1] = previewScreen1;
 	this->uiList.push_back(previewScreen1);
 	

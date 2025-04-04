@@ -9,6 +9,7 @@ public:
 	PreviewScreen(float posX, float posY, int sceneNum);
 	~PreviewScreen();
 
+	void changeImage(std::string path);
 	void updateLoadingProgress(float progress);
 
 	float getLoadingProgress() const;

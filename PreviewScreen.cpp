@@ -4,6 +4,7 @@
 #include "stb_image.h"
 #include <glad/glad.h>
 
+#include "src/SceneManager.h"
 #include "CurrentLoadingBar.h"
 
 PreviewScreen::PreviewScreen(float posX, float posY, int sceneNum) : AUIScreen("PreviewScreen")
@@ -28,6 +29,11 @@ PreviewScreen::~PreviewScreen()
 {
     std::cout << "Destroying PreviewScreen " << this << std::endl;
     if (textureID) glDeleteTextures(1, &textureID); 
+}
+
+void PreviewScreen::changeImage(std::string path)
+{
+    this->loadTexture(path);
 }
 
 void PreviewScreen::updateLoadingProgress(float progress)
@@ -139,6 +145,7 @@ void PreviewScreen::drawUI()
 
     if (ImGui::Button("LOAD SCENE", ImVec2(loadButtonWidth, 0))) {
         std::cout << "Scene " << sceneNum << " Loaded" << std::endl;
+        SceneManager::instance->ToggleRenderAll(true);
     }
     ImGui::PopStyleColor();
     ImGui::PopID();
